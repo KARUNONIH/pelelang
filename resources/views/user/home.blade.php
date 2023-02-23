@@ -69,7 +69,7 @@
                 <table class="mx-auto text-white text-lg mt-3 bg-gray-600 w-[100%] p-2 rounded-b-xl">
                     @foreach (App\Models\itemModel::take(10)->orderBy('complete_at', 'ASC')->where('complete_at', '>=', Carbon\Carbon::now('Asia/Jakarta'))->get() as $end)
                         <tr class="almost">
-                            <td class="w-[60%]">
+                            <td class="w-[56%]">
                                 <a href="{{ route('item.show', ['item_id' => $end->id]) }}" class="">
                                     <p class="ml-4 truncate pb-3  list">{{ $end->nama }}</p>
                                 </a>
