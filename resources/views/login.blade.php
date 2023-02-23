@@ -10,7 +10,7 @@
                 <div id="default-carousel" class="relative" data-carousel="static">
                     <div class="relative">
                         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <form action="{{ route('login') }}" method="post">
+                            <form action="" method="post">
                                 @csrf
                                 <p class="text-center text-[36px] font-bold mt-16 mb-[65px]">Login</p>
                                 <div class="mx-auto w-[380px] mb-8">
@@ -67,7 +67,7 @@
                             </form>
                         </div>
                         <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <form action="{{ route('register') }}" method="post">
+                            <form action="" method="post">
                                 @csrf
                                 <p class="text-center text-[36px] font-bold mt-16 mb-[30px]">Sign Up</p>
                                 <div class="mx-auto w-[380px] mb-8">

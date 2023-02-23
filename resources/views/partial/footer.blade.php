@@ -1,14 +1,134 @@
+{{-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script>
+    $('#search').on('keyup', function() {
+        search();
+    });
+    search();
+
+    function search() {
+        var keyword = $('#search').val();
+        $.post('{{ route('user.search') }}', {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                keyword: keyword
+            },
+            function(data) {
+                table_post_row(data);
+                console.log(data);
+            });
+    }
+    // table row with ajax
+    function table_post_row(res) {
+        let htmlView = '';
+        if (res.employees.length <= 0) {
+            htmlView += `
+           <tr>
+              <td colspan="4">No data.</td>
+          </tr>`;
+        }
+        for (let i = 0; i < res.employees.length; i++) {
+            htmlView += `
+            <tr>
+               <td>` + (i + 1) + `</td>
+                  <td>` + res.employees[i].nama + `</td>
+                   <td>` + res.employees[i].deskripsi + `</td>
+            </tr>`;
+        }
+        $('tbody').html(htmlView);
+    }
+</script> --}}
+{{-- <script type="text/javascript">
+    $(document).ready(function() {
+        $('#search').on('keyup', function() {
+            var query = $(this).val();
+
+            $.ajax({
+                url: "{{ url('/search') }}",
+                type: "GET",
+                data: {
+                    'search': query
+                },
+                success: function(data) {
+                    $('#result').html('');
+                    if (data.length > 0) {
+                    $.each(data, function(index, item) {
+                        var link = "<a href='/items/" + item.id + "'>" + item.nama +
+                            "</a>";
+                        $('#result').append(
+                            '<tr class="text-white"><td class="w-[180px] ">' +
+                            link +
+                            '</td><td class="w-[50px] "></td><td><p  class="truncate w-[270px]">' +
+                            item.deskripsi + '</p></td></tr>');
+                    });
+                    $('#error').hide();
+                    $('#result').show();
+                        } else {
+                            $('#error').show();
+                            $('#result').hide();
+                        }
+                }
+            });
+            if (query == '') {
+                    $('#result').hide();
+                }
+        });
+    });
+</script> --}}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#search').on('keyup', function() {
+            var query = $(this).val();
+
+            $.ajax({
+                url: "{{ url('/search') }}",
+                type: "GET",
+                data: {
+                    'search': query
+                },
+                success: function(data) {
+                    if (query == '') {
+                        $('#result').hide();
+
+                    } else {
+                        $('#result').html('');
+                    if (data.length > 0) {
+                        $.each(data, function(index, item) {
+                            var link = "<a href='/item/" + item.id + "'>" + item.nama +"</a>";
+                            $('#result').append('<tr class="text-white"><td>' +link +'</td></tr>');
+                        });
+                        $('#error').hide();
+                        $('#result').show();
+                    } else {
+                        $('#error').show();
+                        $('#result').hide();
+                    }
+                    }
+
+                }
+            });
+        });
+    });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <!-- plugin for charts  -->
-<script src="{{  asset('/js/plugins/chartjs.min.js')}}" async></script>
+<script src="{{ asset('/js/plugins/chartjs.min.js') }}" async></script>
 <!-- plugin for scrollbar  -->
-<script src="{{  asset('/js/plugins/perfect-scrollbar.min.js')}}" async></script>
+<script src="{{ asset('/js/plugins/perfect-scrollbar.min.js') }}" async></script>
 <!-- github button -->
 <script async defer src="https://buttons.github.io/buttons.js')}}"></script>
 <!-- main script file  -->
-<script src="{{  asset('/js/soft-ui-dashboard-tailwind.js?v=1.0.4')}}" async></script>
+<script src="{{ asset('/js/soft-ui-dashboard-tailwind.js?v=1.0.4') }}" async></script>
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 {{-- <script>
     $(function() {
@@ -32,6 +152,24 @@
             });
         }
 
+    });
+</script> --}}
+{{-- <script>
+    $(document).ready(function() {
+        $('#search-form').on('submit', function(e) {
+            e.preventDefault();
+            var query = $('#search-input').val();
+            $.ajax({
+                url: $(this).attr('action'),
+                method: 'GET',
+                data: {
+                    query: query
+                },
+                success: function(response) {
+                    $('#search-results').html(response);
+                }
+            });
+        });
     });
 </script> --}}
 <script>

@@ -240,7 +240,7 @@
                                         <div>
                                             <p class="mb-0 font-sans font-semibold leading-normal text-sm">Item Succes</p>
                                             <h5 class="mb-0 font-bold">
-                                                {{ App\Models\itemModel::where('complete_at', '<', Carbon\Carbon::now('Asia/Jakarta'))->count() }}
+                                                {{ $item->count() }}
                                                 {{-- <span class="leading-normal text-red-600 text-sm font-weight-bolder">-2%</span> --}}
                                             </h5>
                                         </div>
@@ -349,7 +349,7 @@
                                         <p class="mb-0 leading-normal text-sm">
                                             <i class="fa fa-check text-cyan-500"></i>
                                             <span
-                                                class="ml-1 font-semibold">{{ App\Models\itemModel::whereMonth('complete_at', Carbon\Carbon::now('Asia/Jakarta')->month)->where('complete_at', '<', Carbon\Carbon::now('Asia/Jakarta'))->count() }}</span>
+                                                class="ml-1 font-semibold">{{ App\Models\itemModel::whereMonth('complete_at', Carbon\Carbon::now('Asia/Jakarta')->month)->where('status', 1)->count() }}</span>
                                             this month
                                         </p>
                                     </div>
@@ -428,7 +428,7 @@
                                                         class="p-2 leading-normal text-center align-middle bg-transparent border-b text-sm ">
                                                         <span class="font-semibold leading-tight text-xs">
                                                             @if ($item->id_user === 0)
-                                                                $0
+                                                                --
                                                             @else
                                                                 ${{ $item->harga_akhir }}
                                                             @endif

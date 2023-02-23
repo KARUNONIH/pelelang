@@ -59,17 +59,33 @@ class itemController extends Controller
             $gambar = $request->file('gambar')->store('item_image');
         }
 
-        itemModel::create([
-            'nama' => $request->nama,
-            'harga_awal' => $request->harga_awal,
-            'harga_akhir' => $request->harga_awal,
-            'deskripsi' => $request->deskripsi,
-            'complete_at' => $request->complete_at,
-            'kategori_id' => $request->kategori_id,
-            'gambar' => $gambar,
-        ]);
+        $a = $request->complete_at;
+        if($a < Carbon::now()){
+            itemModel::create([
+                'nama' => $request->nama,
+                'harga_awal' => $request->harga_awal,
+                'harga_akhir' => $request->harga_awal,
+                'deskripsi' => $request->deskripsi,
+                'complete_at' => $request->complete_at,
+                'kategori_id' => $request->kategori_id,
+                'gambar' => $gambar,
+                'status' => 1
+            ]);
+        }else{
+            itemModel::create([
+                'nama' => $request->nama,
+                'harga_awal' => $request->harga_awal,
+                'harga_akhir' => $request->harga_awal,
+                'deskripsi' => $request->deskripsi,
+                'complete_at' => $request->complete_at,
+                'kategori_id' => $request->kategori_id,
+                'gambar' => $gambar,
+                'status' => 0
+            ]);
+        }
 
-     
+
+
 
         return redirect('/item');
     }
@@ -81,11 +97,11 @@ class itemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
+    {
         $item = itemModel::where('id', $id)->first();
         return view('user.detail' , [
             'item' => $item,
-            
+
         ]);
     }
 
@@ -109,7 +125,6 @@ class itemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request->all();
         //     itemModel::where('id', $id)->update([
         //         'complete_at' => Carbon::now('Asia/Jakarta')
         //     ]);
@@ -127,4 +142,17 @@ class itemController extends Controller
     {
         //
     }
+
+    public function stop($id)
+{
+    $lelang = itemModel::find($id);
+    $lelang->status = "1";
+    $lelang->save();
+
+        itemModel::where('status', 1)->update([
+            'complete_at' => Carbon::now('Asia/Jakarta')
+        ]);
+
+    return redirect()->back()->with('success', 'Lelang berhasil dihentikan.');
+}
 }

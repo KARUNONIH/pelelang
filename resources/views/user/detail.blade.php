@@ -83,7 +83,7 @@
                                                             price</label>
                                                         <input type="number" name="bid_price" id="bid_price"
                                                             class="bg-gray-50 border mb-3 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-black"
-                                                            placeholder="Rp." min="{{ $item->harga_akhir + 1 }}"
+                                                            placeholder="Rp." min="{{ $item->harga_akhir + 1 }}" step="{{ $item->harga_awal / 10}}"
                                                             required>
                                                     </div>
                                                     <div>

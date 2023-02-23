@@ -86,7 +86,7 @@
                                 class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
                                 <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <title>credit-card</title>
+                                    <title>Kategori</title>
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
                                             fill-rule="nonzero">
@@ -145,8 +145,8 @@
                         <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
                             <!-- online builder btn  -->
                             <!-- <li class="flex items-center">
-                                                    <a class="inline-block px-8 py-2 mb-0 mr-4 font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer leading-pro border-fuchsia-500 ease-soft-in text-xs hover:scale-102 active:shadow-soft-xs text-fuchsia-500 hover:border-fuchsia-500 active:bg-fuchsia-500 active:hover:text-fuchsia-500 hover:text-fuchsia-500 tracking-tight-soft hover:bg-transparent hover:opacity-75 hover:shadow-none active:text-white active:hover:bg-transparent" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard&amp;_ga=2.76518741.1192788655.1647724933-1242940210.1644448053">Online Builder</a>
-                                                  </li> -->
+                                                            <a class="inline-block px-8 py-2 mb-0 mr-4 font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer leading-pro border-fuchsia-500 ease-soft-in text-xs hover:scale-102 active:shadow-soft-xs text-fuchsia-500 hover:border-fuchsia-500 active:bg-fuchsia-500 active:hover:text-fuchsia-500 hover:text-fuchsia-500 tracking-tight-soft hover:bg-transparent hover:opacity-75 hover:shadow-none active:text-white active:hover:bg-transparent" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard&amp;_ga=2.76518741.1192788655.1647724933-1242940210.1644448053">Online Builder</a>
+                                                          </li> -->
                             <li class="flex items-center">
                                 <a href="../pages/sign-in.html"
                                     class="block px-0 py-2 font-semibold transition-all ease-nav-brand text-sm text-slate-500">
@@ -283,13 +283,13 @@
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-dark bg-gray-600 mb-3" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
-                    Add Item
+                    Add Kategori
                 </button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
@@ -298,47 +298,13 @@
                             </div>
                             <div class="p-3 max-h-[600px] overflow-auto">
 
-                                <form action="{{ Route('item.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ Route('kategori.store') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Nama Barang</label>
+                                        <label for="exampleInputEmail1" class="form-label">Nama Kategori</label>
                                         <input type="text" class="form-control" id="exampleInputEmail1"
-                                            name="nama" aria-describedby="emailHelp">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Harga Awal</label>
-                                        <input type="number" class="form-control" id="exampleInputEmail1"
-                                            name="harga_awal" aria-describedby="emailHelp">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Deskripsi</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            name="deskripsi" aria-describedby="emailHelp">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Complete at</label>
-                                        <input type="datetime-local" class="form-control" id="exampleInputEmail1"
-                                            name="complete_at" aria-describedby="emailHelp">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Kategori</label>
-                                        <select class="form-select" aria-label="Default select example"
-                                            name="kategori_id">
-                                            <option value="" selected disabled class="text-center">-- Pilih Kategori
-                                                --</option>
-                                            @foreach ($kategori as $i)
-                                                <option value="{{ $i->id }}">{{ $i->nama_kategori }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Gambar</label>
-                                        <input type="file" name="gambar" class="dropify max-w-[400px] max-h-[300px]" data-allowed-file-extensions="jpg jpeg png"  />
+                                            name="nama_kategori" aria-describedby="emailHelp">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -366,164 +332,30 @@
                                             <tr>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Nama</th>
+                                                    No</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Kategori</th>
-                                                <th
-                                                    class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Harga Awal</th>
-                                                <th
-                                                    class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Final Bid</th>
-                                                <th
-                                                    class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Jumlah bid</th>
-                                                <th
-                                                    class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Waktu Selesai</th>
+                                                    Nama kategori</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($item as $item)
+                                            @foreach ($kategori as $item)
                                                 <tr>
                                                     <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent flex">
-                                                        <img src="{{ asset('storage/' . $item->gambar) }}" alt=""
-                                                            class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl">
-                                                        <p class="mb-0 font-semibold leading-normal text-sm">
-                                                            {{ $item->nama }}</p>
+                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                        <p class="mb-0 font-semibold leading-normal text-sm text-center">
+                                                            {{ $loop->iteration }}</p>
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                         <p class="mb-0 font-semibold leading-normal text-sm text-center">
-                                                            {{ $item->kategori->nama_kategori }}</p>
-                                                    </td>
-                                                    <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        <p class="mb-0 font-semibold leading-normal text-sm text-center">
-                                                            {{ $item->harga_awal }}</p>
-                                                    </td>
-                                                    <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        <p class="mb-0 font-semibold leading-normal text-sm text-center">
-                                                            @if ($item->harga_akhir === $item->harga_awal)
-                                                                --
-                                                            @else
-                                                                ${{ $item->harga_akhir }}
-                                                            @endif
-                                                        </p>
-                                                    </td>
-                                                    <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        <p class="mb-0 font-semibold leading-normal text-sm text-center">
-                                                            {{ $item->bid->count() }}</p>
-                                                    </td>
-                                                    <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        <span
-                                                            class="clockdiv mb-0 font-semibold leading-normal text-sm text-center"
-                                                            data-date="{{ $item->complete_at }}">
-                                                            <span class="days text-center"></span>d
-                                                            <span class="hours text-center"></span>h
-                                                            <span class="minutes text-center"></span>m
-                                                            <span class="seconds text-center"></span>s
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        {{-- <button
-                                                            class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900"
-                                                            data-bs-toggle="modal" data-bs-target="#UpdateModal"
-                                                            data-url="{{ route('item.update', ['item_id' => $item->id]) }}"
-                                                            data-status="{{ $item->status }}">Stop
-                                                        </button> --}}
-                                                        @if ($item->status === 0)
-                                                            <form action="{{ route('item.stop', $item->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                <button type="submit" name="complete_at"
-                                                                    value="1">stop</button>
-                                                            </form>
-                                                        @endif
+                                                            {{ $item->nama_kategori }}</p>
+                                                    <td>edit | Hapus</td>
 
-                                                    </td>
-                                                    {{-- <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <p class="mb-0 font-semibold leading-normal text-sm">$2,500</p>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <span class="font-semibold leading-tight text-xs">working</span>
-                                                </td>
-                                                <td
-                                                    class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex items-center justify-center">
-                                                        <span class="mr-2 font-semibold leading-tight text-xs">60%</span>
-                                                        <div>
-                                                            <div
-                                                                class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                                <div class="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-3/5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                    role="progressbar" aria-valuenow="60"
-                                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <button
-                                                        class="inline-block px-6 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro text-xs ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400">
-                                                        <i class="leading-tight fa fa-ellipsis-v text-xs"></i>
-                                                    </button>
-                                                </td> --}}
                                                 </tr>
                                             @endforeach
-                                            {{-- <tr>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex px-2">
-                                                        <div>
-                                                            <img src="../assets/img/small-logos/logo-invision.svg"
-                                                                class="inline-flex items-center justify-center mr-2 text-white transition-all duration-200 rounded-full ease-soft-in-out text-sm h-9 w-9"
-                                                                alt="invision" />
-                                                        </div>
-                                                        <div class="my-auto">
-                                                            <h6 class="mb-0 leading-normal text-sm">Invision</h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <p class="mb-0 font-semibold leading-normal text-sm">$5,000</p>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <span class="font-semibold leading-tight text-xs">done</span>
-                                                </td>
-                                                <td
-                                                    class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <div class="flex items-center justify-center">
-                                                        <span class="mr-2 font-semibold leading-tight text-xs">100%</span>
-                                                        <div>
-                                                            <div
-                                                                class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                                                                <div class="duration-600 ease-soft bg-gradient-to-tl from-green-600 to-lime-400 -mt-0.38 -ml-px flex h-1.5 w-full flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all"
-                                                                    role="progressbar" aria-valuenow="100"
-                                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                    <button
-                                                        class="inline-block px-6 py-3 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-pro text-xs ease-soft-in bg-150 tracking-tight-soft bg-x-25 text-slate-400"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="leading-tight fa fa-ellipsis-v text-xs"></i>
-                                                    </button>
-                                                </td>
-                                            </tr> --}}
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -533,138 +365,7 @@
                 </div>
             </div>
         </main>
-        {{-- <div fixed-plugin>
-            <a fixed-plugin-button
-                class="bottom-7.5 right-7.5 text-xl z-990 shadow-soft-lg rounded-circle fixed cursor-pointer bg-white px-4 py-2 text-slate-700">
-                <i class="py-2 pointer-events-none fa fa-cog"> </i>
-            </a>
-            <!-- -right-90 in loc de 0-->
-            <div fixed-plugin-card
-                class="z-sticky shadow-soft-3xl w-90 ease-soft -right-90 fixed top-0 left-auto flex h-full min-w-0 flex-col break-words rounded-none border-0 bg-white bg-clip-border px-2.5 duration-200">
-                <div class="px-6 pt-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                    <div class="float-left">
-                        <h5 class="mt-4 mb-0">Soft UI Configurator</h5>
-                        <p>See our dashboard options.</p>
-                    </div>
-                    <div class="float-right mt-6">
-                        <button fixed-plugin-close-button
-                            class="inline-block p-0 mb-4 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer hover:scale-102 leading-pro text-xs ease-soft-in tracking-tight-soft bg-150 bg-x-25 active:opacity-85 text-slate-700">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </div>
-                    <!-- End Toggle Button -->
-                </div>
-                <hr class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
-                <div class="flex-auto p-6 pt-0 sm:pt-4">
-                    <!-- Sidebar Backgrounds -->
-                    <div>
-                        <h6 class="mb-0">Sidebar Colors</h6>
-                    </div>
-                    <a href="javascript:void(0)">
-                        <div class="my-2 text-left" sidenav-colors>
-                            <span
-                                class="py-2.2 text-xs px-3.6 rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-purple-700 to-pink-500 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-slate-700 text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                active-color data-color-from="purple-700" data-color-to="pink-500"
-                                onclick="sidebarColor(this)"></span>
-                            <span
-                                class="py-2.2 text-xs px-3.6 rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-gray-900 to-slate-800 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                data-color-from="gray-900" data-color-to="slate-800" onclick="sidebarColor(this)"></span>
-                            <span
-                                class="py-2.2 text-xs px-3.6 rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-blue-600 to-cyan-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                data-color-from="blue-600" data-color-to="cyan-400" onclick="sidebarColor(this)"></span>
-                            <span
-                                class="py-2.2 text-xs px-3.6 rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-green-600 to-lime-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                data-color-from="green-600" data-color-to="lime-400" onclick="sidebarColor(this)"></span>
-                            <span
-                                class="py-2.2 text-xs px-3.6 rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-red-500 to-yellow-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                data-color-from="red-500" data-color-to="yellow-400" onclick="sidebarColor(this)"></span>
-                            <span
-                                class="py-2.2 text-xs px-3.6 rounded-circle h-5.75 mr-1.25 w-5.75 ease-soft-in-out bg-gradient-to-tl from-red-600 to-rose-400 relative inline-block cursor-pointer whitespace-nowrap border border-solid border-white text-center align-baseline font-bold uppercase leading-none text-white transition-all duration-200 hover:border-slate-700"
-                                data-color-from="red-600" data-color-to="rose-400" onclick="sidebarColor(this)"></span>
-                        </div>
-                    </a>
-                    <!-- Sidenav Type -->
-                    <div class="mt-4">
-                        <h6 class="mb-0">Sidenav Type</h6>
-                        <p class="leading-normal text-sm">Choose between 2 different sidenav types.</p>
-                    </div>
-                    <div class="flex">
-                        <button transparent-style-btn
-                            class="inline-block w-full px-4 py-3 mb-2 font-bold text-center text-white uppercase align-middle transition-all border border-transparent border-solid rounded-lg cursor-pointer xl-max:cursor-not-allowed xl-max:opacity-65 xl-max:pointer-events-none xl-max:bg-gradient-to-tl xl-max:from-purple-700 xl-max:to-pink-500 xl-max:text-white xl-max:border-0 hover:scale-102 hover:shadow-soft-xs active:opacity-85 leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-purple-700 to-pink-500 bg-fuchsia-500 hover:border-fuchsia-500"
-                            data-class="bg-transparent" active-style>Transparent</button>
-                        <button white-style-btn
-                            class="inline-block w-full px-4 py-3 mb-2 ml-2 font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg cursor-pointer xl-max:cursor-not-allowed xl-max:opacity-65 xl-max:pointer-events-none xl-max:bg-gradient-to-tl xl-max:from-purple-700 xl-max:to-pink-500 xl-max:text-white xl-max:border-0 hover:scale-102 hover:shadow-soft-xs active:opacity-85 leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 border-fuchsia-500 bg-none text-fuchsia-500 hover:border-fuchsia-500"
-                            data-class="bg-white">White</button>
-                    </div>
-                    <p class="block mt-2 leading-normal text-sm xl:hidden">You can change the sidenav type just on desktop
-                        view.</p>
-                    <!-- Navbar Fixed -->
-                    <div class="mt-4">
-                        <h6 class="mb-0">Navbar Fixed</h6>
-                    </div>
-                    <div class="min-h-6 mb-0.5 block pl-0">
-                        <input
-                            class="rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left mt-1 ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right"
-                            type="checkbox" navbarFixed />
-                    </div>
-                    <hr
-                        class="h-px bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent sm:my-6" />
-                    <a class="inline-block w-full px-6 py-3 mb-4 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer leading-pro text-xs ease-soft-in hover:shadow-soft-xs hover:scale-102 active:opacity-85 tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800"
-                        href="https://www.creative-tim.com/product/soft-ui-dashboard-tailwind" target="_blank">Free
-                        Download</a>
-                    <a class="inline-block w-full px-6 py-3 mb-4 font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer active:shadow-soft-xs hover:scale-102 active:opacity-85 leading-pro text-xs ease-soft-in tracking-tight-soft bg-150 bg-x-25 border-slate-700 text-slate-700 hover:bg-transparent hover:text-slate-700 hover:shadow-none active:bg-slate-700 active:text-white active:hover:bg-transparent active:hover:text-slate-700 active:hover:shadow-none"
-                        href="https://www.creative-tim.com/learning-lab/tailwind/html/quick-start/soft-ui-dashboard/"
-                        target="_blank"">View documentation</a>
-                    <div class="w-full text-center">
-                        <a class="github-button" href="https://github.com/creativetimofficial/soft-ui-dashboard-tailwind"
-                            data-icon="octicon-star" data-size="large" data-show-count="true"
-                            aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
-                        <h6 class="mt-4">Thank you for sharing!</h6>
-                        <a href="https://twitter.com/intent/tweet?text=Check%20Soft%20UI%20Dashboard%20Tailwind%20made%20by%20%40CreativeTim&hashtags=webdesign,dashboard,tailwindcss&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard-tailwind"
-                            class="inline-block px-6 py-3 mb-0 mr-2 font-bold text-center text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer hover:shadow-soft-xs hover:scale-102 active:opacity-85 leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 me-2 border-slate-700 bg-slate-700"
-                            target="_blank"> <i class="mr-1 fab fa-twitter" aria-hidden="true"></i> Tweet </a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard-tailwind"
-                            class="inline-block px-6 py-3 mb-0 mr-2 font-bold text-center text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer hover:shadow-soft-xs hover:scale-102 active:opacity-85 leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 me-2 border-slate-700 bg-slate-700"
-                            target="_blank"> <i class="mr-1 fab fa-facebook-square" aria-hidden="true"></i> Share </a>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        {{-- <div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" id="modal-content">
-                </div>
-            </div>
-        </div>
-        @include('partial.jsbootstrap')
-    @section('js')
-        <script>
-            $('#UpdateModal').on('shown.bs.modal', function(e) {
-                var html = `
-              <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Edit barang</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <form action="${$(e.relatedTarget).data('url')}" method="POST">
-                  @csrf
-                  @method('PUT')
-                  <div class="modal-body">
-                      <div class="mb-3">
-                          <label for="exampleFormControlInput1" class="form-label">Nama </label>
-                          <input type="text" name="nama_barang" value="${$(e.relatedTarget).data('status')}" class="form-control" id="exampleFormControlInput1"
-                              placeholder="name@example.com">
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save changes</button>
-                  </div>
-              </form>
-              `;
-                $('#modal-content').html(html);
-            });
-        </script>
-    @endsection --}}
+        @include('sweetalert::alert')
 
     </body>
 @endsection

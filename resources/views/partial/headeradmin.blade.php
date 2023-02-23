@@ -40,4 +40,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- my css --}}
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
-  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css"  rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('css/dropify.css') }}">
+    <script src="{{ asset('js/dropify.js') }}"></script>
+
+  </head>

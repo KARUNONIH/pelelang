@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('gambar', 255);
             $table->string('kategori_id', 255);
             $table->string('harga_akhir', 255);
-            $table->integer('id_user');
+            $table->integer('id_user')->default(0);
             $table->integer('status')->default(0);
             $table->timestamp('complete_at');
             $table->timestamps();

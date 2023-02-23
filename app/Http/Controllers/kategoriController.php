@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\itemModel;
 use App\Models\kategoriModel;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class kategoriController extends Controller
 {
@@ -15,26 +17,10 @@ class kategoriController extends Controller
      */
     public function index(Request $request)
     {
-        $item = itemModel::query();
-
-        $item->when($request->kategori, function ($query) use ($request) {
-            return $query->where('kategori_id', $request->kategori);
-        });
-
-        return view('user.home', [
-            'k' => $item
+        $kategori = kategoriModel::all();
+        return view('admin.kategori', [
+            'kategori' => $kategori,
         ]);
-        // $kategori = kategoriModel::query();
-
-        // if($request->has('kategori')){
-        //     $kategori->where('nama_kategori', $request->kategori);
-        // }
-
-        // $kategori = $kategori->get();
-
-        // return view('user.home', [
-        //     'k' => $kategori
-        // ]);
     }
 
     /**
@@ -44,7 +30,7 @@ class kategoriController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -55,7 +41,22 @@ class kategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $validate = $request->validate([
+            'nama_kategori' =>'required',
+        ]);
+
+        if($validate){
+           $store = kategoriModel::create([
+                'nama_kategori' => $request->nama_kategori,
+            ]);
+            if($store){
+                Alert::success('Berhasil', 'Kategori berhasil ditambahkan');
+            }
+        }
+
+
+        return redirect('/kategori')->with('success', 'Data kategori berhasil diperbarui!');
+
     }
 
     /**
@@ -89,7 +90,11 @@ class kategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_kategori' =>'required',
+        ]);
+        kategoriModel::where('id', $id)->update(['nama_kategori' => $request->nama_kategori]);
+        return redirect('admin/kategori')->with('success', 'Data kategori berhasil diperbarui!');
     }
 
     /**
@@ -100,6 +105,7 @@ class kategoriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        kategoriModel::where('id', $id)->delete();
+        return redirect('admin/kategori')->with('success', 'Data kategori berhasil dihapus!');
     }
 }

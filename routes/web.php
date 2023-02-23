@@ -5,8 +5,11 @@ use App\Http\Controllers\bidController;
 use App\Http\Controllers\itemController;
 use App\Http\Controllers\kategoriController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\searchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
+use Illuminate\Http\Request;
+
 
 
 /*
@@ -23,6 +26,10 @@ use App\Http\Controllers\userController;
 Route::get('/', function () {
     return view('auth.login');
 });
+// Route::get('/', function () {
+//     return view('login');
+// });
+
 
 Route::get('/dashboard', [userController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');;
 
@@ -40,8 +47,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/item/{item_id}', [itemController::class, 'show'])->name('item.show');
     Route::post('/item', [itemController::class, 'store'])->name('item.store');
     Route::put('/item/{item_id}', [itemController::class, 'update'])->name('item.update');
-    Route::put('/{item_id}', [itemController::class, 'update'])->name('item.update');
+    Route::post('/item/{id}/stop', [itemController::class, 'stop'])->name('item.stop');
     Route::delete('/item/{item_id}', [itemController::class, 'destroy'])->name('item.destroy');
+
+    Route::get('/kategori', [kategoriController::class, 'index'])->name('kategori.index');
+    Route::post('/kategori', [kategoriController::class, 'store'])->name('kategori.store');
+    Route::put('/kategori/{kategori_id}', [kategoriController::class, 'update'])->name('kategori.update');
+    Route::delete('/kategori/{kategori_id}', [kategoriController::class, 'destroy'])->name('kategori.destroy');
 
     Route::get('/admin', [adminController::class, 'index'])->name('admin.index');
     Route::get('/admin/item', [adminController::class, 'item'])->name('admin.item');
@@ -49,11 +61,25 @@ Route::middleware('auth')->group(function () {
     Route::get('/home_user', [userController::class, 'index'])->name('user.home');
     Route::get('/cek', [userController::class, 'cek'])->name('user.cek');
     Route::get('/history', [userController::class, 'history'])->name('user.history');
+    Route::get('/search', [userController::class, 'search'])->name('user.search');
+    Route::get('/user/kategori', [userController::class, 'kategori'])->name('user.kategori');
 
     Route::get('/item-detail/{item_id}', [bidController::class, 'show'])->name(('bid.show'));
     Route::post('/item-detail/{item_id}', [bidController::class, 'store'])->name(('bid.store'));
 
     Route::get('/kategori', [kategoriController::class, 'index'])->name('kategori.index');
+    Route::get('/pdf', [adminController::class, 'pdf'])->name('admin.pdf');
+    // Route::get('/search', [searchController::class, 'index'])->name('search.index');
+    // Route::get('/search', function(Request $request) {
+    //     $search = $request->input('search');
+    //     $data = DB::table('item')
+    //             ->where('nama', 'LIKE', '%'.$search.'%')
+    //             ->get();
+
+    //     return response()->json($data);
+    //   });
+
+    Route::get('/search',[searchController::class, 'index'] )->name('search.index');
 
     Route::get('/petugas', function () {
         return view('petugas.home');
