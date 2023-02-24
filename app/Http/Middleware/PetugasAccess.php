@@ -2,11 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Auth;
 use Closure;
 use Illuminate\Http\Request;
 
-class admin
+class PetugasAccess
 {
     /**
      * Handle an incoming request.
@@ -15,22 +14,13 @@ class admin
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next, $userType)
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-
-        if (Auth::user()->role == 'user') {
-            return redirect()->route('user.index');
-        }
-
-        if (Auth::user()->role == 'admin') {
+        if (auth()->user()->type == $userType) {
             return $next($request);
         }
 
-        if (Auth::user()->role == 'petugas') {
-            return redirect()->route('petugas.index');
-        }
+        return response()->json(['You do not have permission to access for this page.']);
+        /* return response()->view('errors.check-permission'); */
     }
 }

@@ -64,5 +64,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'user-access' => \App\Http\Middleware\UserAccess::class,
+        'admin-access' => \App\Http\Middleware\AdminAccess::class,
+        'petugas-access' => \App\Http\Middleware\PetugasAccess::class,
     ];
 }

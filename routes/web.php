@@ -32,17 +32,32 @@ Route::get('/', function () {
 // });
 
 
-Route::get('/dashboard', [userController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');;
 
 // Route::get('/dashboard', function () {
 //     return view('user.home');
 // })
 
+Route::middleware(['auth', 'user-access:user'])->group(function () {
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/home_user', [userController::class, 'index'])->name('user.home');
+    Route::get('/cek', [userController::class, 'cek'])->name('user.cek');
+    Route::get('/history', [userController::class, 'history'])->name('user.history');
+    Route::get('/search', [userController::class, 'search'])->name('user.search');
+    Route::get('/user/kategori', [userController::class, 'kategori'])->name('user.kategori');
+
+    Route::get('/item-detail/{item_id}', [bidController::class, 'show'])->name(('bid.show'));
+    Route::post('/item-detail/{item_id}', [bidController::class, 'store'])->name(('bid.store'));
+});
+
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+
+    Route::get('/admin', [adminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/item', [adminController::class, 'item'])->name('admin.item');
+    Route::get('/admin/kategori', [adminController::class, 'kategori'])->name('admin.kategori');
+    Route::get('/admin/role', [adminController::class, 'role'])->name('admin.role');
+});
+
+Route::middleware(['auth', 'user-access:petugas'])->group(function () {
 
     Route::get('/item', [itemController::class, 'index'])->name('item.index');
     Route::get('/item/{item_id}', [itemController::class, 'show'])->name('item.show');
@@ -57,24 +72,20 @@ Route::middleware('auth')->group(function () {
     Route::put('/kategori/{kategori_id}', [kategoriController::class, 'update'])->name('kategori.update');
     Route::delete('/kategori/{kategori_id}', [kategoriController::class, 'destroy'])->name('kategori.destroy');
 
-    Route::get('/admin', [adminController::class, 'index'])->name('admin.index');
-    Route::get('/admin/item', [adminController::class, 'item'])->name('admin.item');
-    Route::get('/admin/kategori', [adminController::class, 'kategori'])->name('admin.kategori');
-    Route::get('/admin/role', [adminController::class, 'role'])->name('admin.role');
-
 
     Route::get('/petugas', [petugasController::class, 'index'])->name('petugas.index');
     Route::get('/petugas/item', [petugasController::class, 'item'])->name('petugas.item');
     Route::get('/petugas/kategori', [petugasController::class, 'kategori'])->name('petugas.kategori');
+});
 
-    Route::get('/home_user', [userController::class, 'index'])->name('user.home');
-    Route::get('/cek', [userController::class, 'cek'])->name('user.cek');
-    Route::get('/history', [userController::class, 'history'])->name('user.history');
-    Route::get('/search', [userController::class, 'search'])->name('user.search');
-    Route::get('/user/kategori', [userController::class, 'kategori'])->name('user.kategori');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/item-detail/{item_id}', [bidController::class, 'show'])->name(('bid.show'));
-    Route::post('/item-detail/{item_id}', [bidController::class, 'store'])->name(('bid.store'));
+
+
+
 
     Route::get('/kategori', [kategoriController::class, 'index'])->name('kategori.index');
     Route::get('/pdf', [adminController::class, 'pdf'])->name('admin.pdf');
