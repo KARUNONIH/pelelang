@@ -13,18 +13,22 @@ use Carbon\Carbon;
 class userController extends Controller
 {
     public function index(Request $request){
+        $almost = itemModel::take(10)->where('status', 0)->orderBy('complete_at', 'ASC')->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->get();
+        $new = itemModel::take(3)->where('status', 0)->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->orderBy('id', 'DESC')->get();
         $kategori = kategoriModel::all();
         if ($request->kategori){
-            $item = itemModel::where('kategori_id', $request->kategori)->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->paginate(8);
+            $item = itemModel::where('kategori_id', $request->kategori)->where('status', 0)->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->paginate(8);
         }else if($request->has('terlaris')){
-            $item = itemModel::withCount('bid')->orderBy('bid_count' , 'DESC')->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->paginate(8);
+            $item = itemModel::withCount('bid')->orderBy('bid_count' , 'DESC')->where('status', 0)->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->paginate(8);
         }else{
-            $item = itemModel::where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->paginate(8);
+            $item = itemModel::where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->where('status', 0)->paginate(8);
 
         }
         return view('user.home' , [
             'x' => $item,
             'kategori' => $kategori,
+            'almost' => $almost,
+            'new' => $new
             // 'results' => $results
         ]);
     }

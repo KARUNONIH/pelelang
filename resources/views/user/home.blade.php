@@ -17,7 +17,7 @@
         <div class="w-[70%]">
             <div class="grid grid-cols-3 mt-6 border-r-2 border-gray-700 ">
 
-                @foreach (App\Models\itemModel::take(3)->where('complete_at', '>=', Carbon\Carbon::now('Asia/Jakarta'))->orderBy('id', 'DESC')->get() as $item)
+                @foreach ($new as $item)
                     <div
                         class="max-w-sm bg-white  shadow-black rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 w-[290px] h-[400px] relative">
                         <a href="{{ route('item.show', ['item_id' => $item->id]) }}">
@@ -67,7 +67,7 @@
                     <h1 class="text-2xl text-center text-white pb-2 pt-2 font-bold">Hampir Selesai</h1>
                 </div>
                 <table class="mx-auto text-white text-lg mt-3 bg-gray-600 w-[100%] p-2 rounded-b-xl">
-                    @foreach (App\Models\itemModel::take(10)->orderBy('complete_at', 'ASC')->where('complete_at', '>=', Carbon\Carbon::now('Asia/Jakarta'))->get() as $end)
+                    @foreach ($almost as $end)
                         <tr class="almost">
                             <td class="w-[56%]">
                                 <a href="{{ route('item.show', ['item_id' => $end->id]) }}" class="">

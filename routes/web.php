@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\petugasController;
 use App\Http\Controllers\bidController;
 use App\Http\Controllers\itemController;
 use App\Http\Controllers\kategoriController;
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/item', [itemController::class, 'store'])->name('item.store');
     Route::put('/item/{item_id}', [itemController::class, 'update'])->name('item.update');
     Route::post('/item/{id}/stop', [itemController::class, 'stop'])->name('item.stop');
+    Route::post('/item/{id}/play', [itemController::class, 'start'])->name('item.play');
     Route::delete('/item/{item_id}', [itemController::class, 'destroy'])->name('item.destroy');
 
     Route::get('/kategori', [kategoriController::class, 'index'])->name('kategori.index');
@@ -57,6 +59,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin', [adminController::class, 'index'])->name('admin.index');
     Route::get('/admin/item', [adminController::class, 'item'])->name('admin.item');
+    Route::get('/admin/kategori', [adminController::class, 'kategori'])->name('admin.kategori');
+    Route::get('/admin/role', [adminController::class, 'role'])->name('admin.role');
+
+
+    Route::get('/petugas', [petugasController::class, 'index'])->name('petugas.index');
+    Route::get('/petugas/item', [petugasController::class, 'item'])->name('petugas.item');
+    Route::get('/petugas/kategori', [petugasController::class, 'kategori'])->name('petugas.kategori');
 
     Route::get('/home_user', [userController::class, 'index'])->name('user.home');
     Route::get('/cek', [userController::class, 'cek'])->name('user.cek');
@@ -81,9 +90,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/search',[searchController::class, 'index'] )->name('search.index');
 
-    Route::get('/petugas', function () {
-        return view('petugas.home');
-    });
 });
 
 require __DIR__.'/auth.php';

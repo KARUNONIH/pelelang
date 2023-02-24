@@ -17,10 +17,10 @@ class kategoriController extends Controller
      */
     public function index(Request $request)
     {
-        $kategori = kategoriModel::all();
-        return view('admin.kategori', [
-            'kategori' => $kategori,
-        ]);
+        // $kategori = kategoriModel::all();
+        // return view('admin.kategori', [
+        //     'kategori' => $kategori,
+        // ]);
     }
 
     /**
@@ -41,21 +41,22 @@ class kategoriController extends Controller
      */
     public function store(Request $request)
     {
-       $validate = $request->validate([
+       $request->validate([
             'nama_kategori' =>'required',
         ]);
 
-        if($validate){
+
            $store = kategoriModel::create([
                 'nama_kategori' => $request->nama_kategori,
             ]);
             if($store){
                 Alert::success('Berhasil', 'Kategori berhasil ditambahkan');
+            }else{
+                Alert::error('Error', 'Kategori gagal ditambahkan!');
             }
-        }
+        
 
-
-        return redirect('/kategori')->with('success', 'Data kategori berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Data kategori berhasil diperbarui!');
 
     }
 
@@ -90,11 +91,19 @@ class kategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+       $request->validate([
             'nama_kategori' =>'required',
         ]);
-        kategoriModel::where('id', $id)->update(['nama_kategori' => $request->nama_kategori]);
-        return redirect('admin/kategori')->with('success', 'Data kategori berhasil diperbarui!');
+
+
+           $p = kategoriModel::where('id', $id)->update(['nama_kategori' => $request->nama_kategori]);
+
+        if ($p){
+            Alert::success('Success', 'Kategori berhasil Diedit');
+        } else {
+            Alert::error('Error', 'Kategori gagal Diedit!');
+        }
+        return redirect()->back();
     }
 
     /**
@@ -105,7 +114,12 @@ class kategoriController extends Controller
      */
     public function destroy($id)
     {
-        kategoriModel::where('id', $id)->delete();
-        return redirect('admin/kategori')->with('success', 'Data kategori berhasil dihapus!');
+       $a = kategoriModel::where('id', $id)->delete();
+       if ($a){
+            Alert::success('Success', 'Kategori berhasil dihapus');
+       } else {
+            Alert::error('Error', 'Kategori gagal dihapus!');
+       }
+        return redirect()->back()->with('success', 'Data kategori berhasil dihapus!');
     }
 }

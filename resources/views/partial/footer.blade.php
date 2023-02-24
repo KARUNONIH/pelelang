@@ -101,8 +101,8 @@
                         $('#result').html('');
                     if (data.length > 0) {
                         $.each(data, function(index, item) {
-                            var link = "<a href='/item/" + item.id + "'>" + item.nama +"</a>";
-                            $('#result').append('<tr class="text-white"><td>' +link +'</td></tr>');
+                            var link = "<a class="+'pr-[200px]'+" href='/item/" + item.id + "'>" + item.nama +"</a>";
+                            $('#result').append('<tr class="text-white px-2 hover:bg-gray-600"><td class="px-2 flex">' +link +'</td></tr>');
                         });
                         $('#error').hide();
                         $('#result').show();

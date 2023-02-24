@@ -12,7 +12,7 @@
                 <div class="block relative">
                 <input type="text" id="search" name="search" placeholder="Pilih barang lelang"
                     class="w-[395px] bg-slate-200 border-none rounded-t">
-                    <table id="result" class=" absolute z-50 top-[40px] -left-9 bg-gray-700 w-[435px] rounded-b " style="display: none"></table>
+                    <table id="result" class=" absolute z-50 top-[40px] -left-9 bg-gray-700 w-[435px] rounded-b hidden px-1"></table>
                     <div id="error" class="absolute z-50 top-[40px] -left-9 bg-gray-700 w-[435px] rounded-b hidden text-white text-center py-1">
                         No item found.
                     </div>

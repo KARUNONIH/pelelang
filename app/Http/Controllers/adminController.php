@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\itemModel;
+use App\Models\User;
+use App\Models\kategoriModel;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -16,16 +18,31 @@ class adminController extends Controller
         $akhir = itemModel::where('status', 1)->sum('harga_akhir');
         $profit = $akhir - $awal;
         // $report = itemModel::where('complete_at', '<', date('y-m-d'))->orderBy('complete_at')->gr;
-        $report = Carbon::now('Asia/Jakarta')->month;
+        $report = itemModel::where('status', 1)->get();
         // $item = itemModel::take(6)->orderBy('complete_at', 'DESC')->where('complete_at', '>=' ,date('y-m-d'))->get();
         $item = itemModel::where('status', 1)->whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->get();
         return view('admin.dashboard' , [
             'profit' => $profit,
-            'item' => $item
+            'item' => $item,
+            'report' => $report,
         ]);
     }
     public function item(){
-        return view('admin.item');
+        $kategori = kategoriModel::all();
+        $item = itemModel::all();
+        return view('admin.item' ,
+            [
+                'kategori' => $kategori,
+                'item' => $item
+            ]);
+    }
+
+    public function kategori()
+    {
+        $kategori = kategoriModel::all();
+        return view('admin.kategori', [
+            'kategori' => $kategori,
+        ]);
     }
 
     public function pdf(){
@@ -34,6 +51,13 @@ class adminController extends Controller
             'data' => $data
         ])->setPaper('a4', 'landscape');
         return $pdf->stream();
+    }
+
+    public function role(){
+       $user =  user::all();
+        return view('admin.role',[
+            'user' => $user
+        ]);
     }
 
     // public function download()

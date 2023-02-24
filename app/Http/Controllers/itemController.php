@@ -17,12 +17,12 @@ class itemController extends Controller
      */
     public function index()
     {
-        $kategori = kategoriModel::all();
-        $item = itemModel::all();
-        return view('admin.item' , [
-            'item' => $item,
-            'kategori' => $kategori
-        ]);
+        // $kategori = kategoriModel::all();
+        // $item = itemModel::all();
+        // return view('admin.item' , [
+        //     'item' => $item,
+        //     'kategori' => $kategori
+        // ]);
     }
 
 
@@ -80,14 +80,14 @@ class itemController extends Controller
                 'complete_at' => $request->complete_at,
                 'kategori_id' => $request->kategori_id,
                 'gambar' => $gambar,
-                'status' => 0
+                'status' => 2
             ]);
         }
 
 
 
 
-        return redirect('/item');
+        return redirect()->back();
     }
 
     /**
@@ -143,16 +143,26 @@ class itemController extends Controller
         //
     }
 
+    public function start($id ,Request $request)
+    {
+    $lelang = itemModel::find($id);
+    $lelang->status = "0";
+    $lelang->save();
+    return redirect()->back()->with('success', 'Lelang berhasil dimulai.');
+    }
     public function stop($id)
 {
     $lelang = itemModel::find($id);
     $lelang->status = "1";
     $lelang->save();
 
-        itemModel::where('status', 1)->update([
+        itemModel::where('id', $id)->update([
             'complete_at' => Carbon::now('Asia/Jakarta')
         ]);
 
     return redirect()->back()->with('success', 'Lelang berhasil dihentikan.');
 }
+
+
+
 }

@@ -17,6 +17,32 @@
   </script>
   @yield('js')
   <script>
+    $('#UpdateModal').on('shown.bs.modal', function(e) {
+        var html = `
+      <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit barang</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="${$(e.relatedTarget).data('url')}" method="POST">
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Nama Kategori</label>
+                  <input type="text" name="nama_kategori" value="${$(e.relatedTarget).data('nama_kategori')}" class="form-control" id="exampleFormControlInput1"
+                      placeholder="name@example.com">
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+      </form>
+      `;
+        $('#modal-content').html(html);
+    });
+</script>
+  <script>
     document.addEventListener('readystatechange', event => {
         if (event.target.readyState === "complete") {
             var clockdiv = document.getElementsByClassName("clockdiv");
