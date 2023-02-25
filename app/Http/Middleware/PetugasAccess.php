@@ -20,7 +20,7 @@ class PetugasAccess
             return $next($request);
         }
 
-        return response()->json(['You do not have permission to access for this page.']);
+        return response()->json(['You do not have permission to access for this petugas page.']);
         /* return response()->view('errors.check-permission'); */
     }
 }

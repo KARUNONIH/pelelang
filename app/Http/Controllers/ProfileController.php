@@ -19,7 +19,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class ProfileController extends Controller
 {
     use AuthenticatesUsers;
-protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
 public function __construct()
     {

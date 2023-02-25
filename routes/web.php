@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\petugasController;
 use App\Http\Controllers\bidController;
 use App\Http\Controllers\itemController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\searchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -25,13 +28,39 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
+});
+
+Route::get('/dashboard', function () {
+    if (auth()->user()->type == 'admin') {
+        return redirect()->route('admin.index');
+    }else if (auth()->user()->type == 'petugas') {
+        return redirect()->route('petugas.index');
+    }else if (auth()->user()->type == 'user'){
+        return redirect()->route('user.home');
+    }else{
+        response()->json(['Who Are You?']);
+    }
 });
 // Route::get('/', function () {
 //     return view('login');
 // });
 
+// Route::get('/dashboard', function () {
+//     if (Auth::check()){
+//         $role = Auth::user()->type;
+//         if ($role == 'user'){
+//             return route('user.home');
+//         } elseif ($role == 'admin') {
+//             return route('admin.index');
+//     }elseif ($role == 'petugas') {
+//             return route('petugas.index');
+//         }else{
+//             response()->json(['You do not have permission to access for this gagal page.']);
+//         }
+//     }
 
+// })->middleware(['auth','user-access:user'])->name('dashboard');
 
 // Route::get('/dashboard', function () {
 //     return view('user.home');
@@ -47,6 +76,13 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::get('/item-detail/{item_id}', [bidController::class, 'show'])->name(('bid.show'));
     Route::post('/item-detail/{item_id}', [bidController::class, 'store'])->name(('bid.store'));
+
+    Route::get('/item/{item_id}', [itemController::class, 'show'])->name('item.show');
+    Route::get('/item/{item_id}/pay', [itemController::class, 'pay'])->name('item.pay');
+
+    Route::post('/item/{item_id}/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+    Route::post('/item/after', [OrderController::class, 'callback'])->name('order.callback');
+
 });
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
@@ -60,7 +96,6 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 Route::middleware(['auth', 'user-access:petugas'])->group(function () {
 
     Route::get('/item', [itemController::class, 'index'])->name('item.index');
-    Route::get('/item/{item_id}', [itemController::class, 'show'])->name('item.show');
     Route::post('/item', [itemController::class, 'store'])->name('item.store');
     Route::put('/item/{item_id}', [itemController::class, 'update'])->name('item.update');
     Route::post('/item/{id}/stop', [itemController::class, 'stop'])->name('item.stop');

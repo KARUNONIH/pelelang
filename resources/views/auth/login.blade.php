@@ -1,49 +1,156 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@include('partial.header')
+@section('title')
+    Login
+@endsection
+<body class="bg-gradient-to-br from-gray-800 to-gray-600">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <div class="flex min-h-screen">
+        <div class=" m-auto flex">
+            <x-auth-session-status class="mb-4" :status="session('status')" />
+            <div class=" w-[500px] h-[600px] bg-white shadow-md rounded-[15px]">
+                <div id="default-carousel" class="relative" data-carousel="static">
+                    <div class="relative">
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <form action="{{ route('login') }}" method="post">
+                                @csrf
+                                <p class="text-center text-[36px] font-bold mt-16 mb-[65px]">Login</p>
+                                <div class="mx-auto w-[380px] mb-8">
+                                    <div class="flex flex-col">
+                                        <label for="email"
+                                            class=" absolute translate-x-6 -translate-y-[14px] px-[10px] bg-white">email</label>
+                                        <div class="flex">
+                                            <p
+                                                class=" absolute translate-x-4 translate-y-1 text-2xl  font-thin text-slate-800">
+                                                <i class="fa-solid fa-user mr-2 text-lg text-black"></i>|
+                                            </p>
+                                            <input type="email" name="email" id="email"
+                                                :value="old('email')" placeholder="Panjul Gaming" required
+                                                autofocus autocomplete="username"
+                                                class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 @error('email') border-red-600 @enderror">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                            </div>
+                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="mx-auto w-[380px] mb-6">
+                                    <div class="flex flex-col">
+                                        <label for="password"
+                                            class=" absolute translate-x-6 -translate-y-[14px] px-[10px] bg-white">Password</label>
+                                        <div class="flex">
+                                            <p
+                                                class=" absolute translate-x-4 translate-y-1 text-2xl  font-thin text-slate-800">
+                                                <i class="fa-solid fa-lock mr-2 text-lg text-black"></i>|
+                                            </p>
+                                            <input type="password" name="password" id="password"
+                                                placeholder="Manusia bernama panjul" required
+                                                autocomplete="current-password"
+                                                class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 @error('password') border-red-600 @enderror">
+                                            </div>
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <button type="submit"
+                                        class="focus:outline-none text-white font-light rounded-full text-[18px] px-5 py-1 text-2xl font-semibold tracking-widest mb-[65px] mx-auto bg-gradient-to-br from-gray-800 to-gray-600 hover:bg-gradient-to-br hover:from-gray-700 hover:to-gray-500  w-[380px] text-center">Login</button>
+                                </div>
+                                <p class="text-center text-gray-800 font-medium text-[18px]">Don't have an account yet?
+                                    <button type="button" class="text-gray-600 hover:text-gray-400"
+                                        data-carousel-prev>Sign
+                                        up</button>
+                                </p>
+                            </form>
+                        </div>
+                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                            <form action="{{ route('register') }}" method="post">
+                                @csrf
+                                <p class="text-center text-[36px] font-bold mt-16 mb-[30px]">Sign Up</p>
+                                <div class="mx-auto w-[380px] mb-8">
+                                    <div class="flex flex-col">
+                                        <label for="name"
+                                            class=" absolute translate-x-6 -translate-y-[14px] px-[10px] bg-white">name</label>
+                                        <div class="flex">
+                                            <p
+                                                class=" absolute translate-x-4 translate-y-1 text-2xl  font-thin text-slate-800">
+                                                <i class="fa-solid fa-user mr-2 text-lg text-black"></i>|
+                                            </p>
+                                            <input type="text" name="name" id="name" autocomplete="name"
+                                                placeholder="Panjul Gaming" :value="old('name')"
+                                                class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 @error('name') border-red-600 @enderror" required>
+                                        </div>
+                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="mx-auto w-[380px] mb-8">
+                                    <div class="flex flex-col">
+                                        <label for="email"
+                                            class=" absolute translate-x-6 -translate-y-[14px] px-[10px] bg-white">email</label>
+                                        <div class="flex">
+                                            <p
+                                                class=" absolute translate-x-4 translate-y-1 text-2xl  font-thin text-slate-800">
+                                                <i class="fa-solid fa-at mr-2 text-lg text-black"></i>|
+                                            </p>
+                                            <input type="email" name="email" id="email" :value="old('email')"
+                                                placeholder="Panjul@gaming.com" autocomplete="username"
+                                                class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 @error('email') border-red-600 @enderror" required>
+                                        </div>
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="mx-auto w-[380px] mb-8">
+                                    <div class="flex flex-col">
+                                        <label for="password"
+                                            class=" absolute translate-x-6 -translate-y-[14px] px-[10px] bg-white">Password</label>
+                                        <div class="flex">
+                                            <p
+                                                class=" absolute translate-x-4 translate-y-1 text-2xl  font-thin text-slate-800">
+                                                <i class="fa-solid fa-lock mr-2 text-lg text-black"></i>|
+                                            </p>
+                                            <input type="password" name="password" id="password" minlength="8"
+                                                placeholder="Manusia bernama panjul" autocomplete="new-password"
+                                                class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 invalid:focus:border-red-600 @error('email') border-red-600 @enderror" required>
+                                        </div>
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="mx-auto w-[380px] mb-6">
+                                    <div class="flex flex-col">
+                                        <label for="Confirm Password"
+                                            class=" absolute translate-x-6 -translate-y-[14px] px-[10px] bg-white">Confirm
+                                            Password</label>
+                                        <div class="flex">
+                                            <p
+                                                class=" absolute translate-x-4 translate-y-1 text-2xl  font-thin text-slate-800">
+                                                <i class="fa-solid fa-lock mr-2 text-lg text-black"></i>|
+                                            </p>
+                                            <input type="password" name="password_confirmation" id="password_confirmation"
+                                                placeholder="Manusia bernama panjul"autocomplete="new-password"
+                                                class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3" required>
+                                        </div>
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <button type="submit"
+                                        class="focus:outline-none text-white font-light rounded-full text-[18px] px-5 py-1 text-2xl font-semibold tracking-widest mb-6 mx-auto bg-gradient-to-br from-gray-800 to-gray-600 hover:bg-gradient-to-br hover:from-gray-700 hover:to-gray-500  w-[380px] text-center">Daftar</button>
+                                </div>
+                                <p class="text-center text-gray-800 font-medium text-[18px]">Anda sudah memiliki akun?
+                                    <button type="button" class="text-gray-600 hover:text-gray-400"
+                                        data-carousel-next>Login</button>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-[500px] h-[600px] rounded-[15px] relative z-20">
+                <img src="{{ asset('image/g1.jpg') }}" alt=""
+                    class="w-[500px] h-[600px] rounded-[15px] relative z-20">
+            </div>
         </div>
+    </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    @include('partial.footer')
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+</body>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-        @endif
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>

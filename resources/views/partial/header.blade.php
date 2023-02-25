@@ -23,6 +23,6 @@
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
     <link href="{{ asset('/css/soft-ui-dashboard-tailwind.css?v=1.0.4') }}" rel="stylesheet" /> --}}
-
+    @yield('bootstrap')
 </head>
 

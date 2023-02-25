@@ -11,11 +11,112 @@
   {{-- flowbite --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script>
+    $('#updateItem').on('shown.bs.modal', function(e) {
+        var html = `
+      <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit barang</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="${$(e.relatedTarget).data('url')}" method="POST" enctype= multipart/form-data>
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Nama Kategori</label>
+                  <input type="text" name="nama" value="${$(e.relatedTarget).data('nama')}" class="form-control" id="exampleFormControlInput1"
+                      placeholder="name@example.com">
+              </div>
+              <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Gambar</label>
+                    <input type="file" name="gambar" value="${$(e.relatedTarget).data('gambar')}" class="dropify max-w-[400px] max-h-[300px]"
+                        data-allowed-file-extensions="jpg jpeg png" />
+                </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+      </form>
+      `;
+        $('#modal-content').html(html);
+    });
+</script>
   <script src="{{ asset('js/dropify.js') }}"></script>
   <script>
     $('.dropify').dropify();
   </script>
+  <script>
+    $('#updateItem').on('shown.bs.modal', function(e) {
+        var html = `
+      <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit barang</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="${$(e.relatedTarget).data('url')}" method="POST" enctype= multipart/form-data>
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Nama Kategori</label>
+                  <input type="text" name="nama" value="${$(e.relatedTarget).data('nama')}" class="form-control" id="exampleFormControlInput1"
+                      placeholder="name@example.com">
+              </div>
+              <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Gambar</label>
+                    <input type="file" name="gambar" value="{{ old('storage/gambar') }}" class="dropify max-w-[400px] max-h-[300px]"
+                        data-allowed-file-extensions="jpg jpeg png" />
+                </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+      </form>
+      `;
+        $('#modal-content').html(html);
+    });
+</script>
+  {{-- <script>
+    $(document).ready(function() {
+      $('#submitBtn').click(function(e) {
+        e.preventDefault();
+
+        var formData = new FormData($('#editForm')[0]);
+
+        $.ajax({
+          url: '{{ route('item.update') }}',
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(data) {
+            $('#editModal').modal('hide');
+            window.location.reload();
+          },
+          error: function(xhr, status, error) {
+            console.error(error);
+          }
+        });
+      });
+    });
+  </script> --}}
   @yield('js')
+    {{-- <script>
+
+  $('#update-item').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var id = button.data('id')
+    var nama = button.data('nama')
+    var kategori = button.data('kategori')
+
+    var modal = $(this)
+    modal.find('#update-id').val(id)
+    modal.find('#nama').val(nama)
+    modal.find('#kaategori').val(kategori)
+  });
+</script> --}}
+
   <script>
     $('#UpdateModal').on('shown.bs.modal', function(e) {
         var html = `
@@ -32,6 +133,7 @@
                   <input type="text" name="nama_kategori" value="${$(e.relatedTarget).data('nama_kategori')}" class="form-control" id="exampleFormControlInput1"
                       placeholder="name@example.com">
               </div>
+
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

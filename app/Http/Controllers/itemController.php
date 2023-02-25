@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 use App\Models\itemModel;
 use App\Models\bidModel;
+use App\Models\User;
 use App\Models\kategoriModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 
 class itemController extends Controller
 {
@@ -125,12 +128,24 @@ class itemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //     itemModel::where('id', $id)->update([
-        //         'complete_at' => Carbon::now('Asia/Jakarta')
-        //     ]);
+      $validate=  $request->validate([
+            'nama' =>'required',
+            // 'harga_awal' =>'required',
+            // 'deskripsi' =>'required',
+            // 'complete_at' =>'required',
+            'gambar' =>'required',
+            // 'kategori_id' =>'required',
 
-        //     return redirect('/item');
-        // }
+        ]);
+
+        if($request->file('gambar')){
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $validate['gambar'] = $request->file('gambar')->store('item_image');
+        }
+        itemModel::where('id', $id)->update($validate);
+        return redirect()->back();
     }
     /**
      * Remove the specified resource from storage.
@@ -163,6 +178,15 @@ class itemController extends Controller
     return redirect()->back()->with('success', 'Lelang berhasil dihentikan.');
 }
 
+public function pay($id)
+    {   $user = Auth::id();
+        $item = itemModel::where('id', $id)->first();
+        return view('user.pay' , [
+            'item' => $item,
+            'user'=>$user
+
+        ]);
+    }
 
 
 }
