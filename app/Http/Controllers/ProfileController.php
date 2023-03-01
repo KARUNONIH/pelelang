@@ -28,26 +28,25 @@ public function __construct()
 
     public function login(Request $request)
     {
-        $input = $request->all();
 
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-        {
-            if (auth()->user()->type == 'admin') {
-                return redirect()->route('admin.index');
-            }else if (auth()->user()->type == 'petugas') {
-                return redirect()->route('petugas.index');
-            }else{
-                return redirect()->route('user.home');
-            }
-        }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
-        }
+        // if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        // {
+        //     if (auth()->user()->type == 'admin') {
+        //         return redirect()->route('admin.index');
+        //     }else if (auth()->user()->type == 'petugas') {
+        //         return redirect()->route('petugas.index');
+        //     }else{
+        //         return redirect()->route('user.home');
+        //     }
+        // }else{
+        //     return redirect()->route('login')
+        //         ->with('error','Email-Address And Password Are Wrong.');
+        // }
 
     }
     /**

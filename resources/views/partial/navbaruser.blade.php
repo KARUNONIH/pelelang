@@ -11,9 +11,9 @@
             {{-- <form action="{{ route('user.search') }}" method="GET" id="search-form"> --}}
                 <div class="block relative">
                 <input type="text" id="search" name="search" placeholder="Pilih barang lelang"
-                    class="w-[395px] bg-slate-200 border-none rounded-t">
-                    <table id="result" class=" absolute z-50 top-[40px] -left-9 bg-gray-700 w-[435px] rounded-b hidden px-1"></table>
-                    <div id="error" class="absolute z-50 top-[40px] -left-9 bg-gray-700 w-[435px] rounded-b hidden text-white text-center py-1">
+                    class="w-[395px] bg-slate-200 border-none rounded-t focus:outline-0">
+                    <table id="result" class=" absolute z-50 top-[40px] -left-9 bg-gray-800 w-[435px] rounded-b hidden px-1"></table>
+                    <div id="error" class="absolute z-50 top-[40px] -left-9 bg-gray-800 w-[435px] rounded-b hidden text-white text-center py-1">
                         No item found.
                     </div>
                 </div>
@@ -55,9 +55,8 @@
 
         </div>
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-            <a href="https://flowbite.com/" class="flex items-center">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white ">Pelelang</span>
+            <a href="{{ route('user.home') }}" class="flex items-center">
+                <img src="{{ asset('image/Pelelang.png') }}" class=" w-[150px]  mr-3 sm:h-9" alt="Flowbite Logo">
             </a>
         </div>
     </div>

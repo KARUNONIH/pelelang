@@ -20,5 +20,9 @@ class bidModel extends Model
     public function get(){
         return $this->belongsTo(itemModel::class, 'id_user');
     }
-    
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }

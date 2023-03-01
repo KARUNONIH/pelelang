@@ -34,7 +34,7 @@ dashboard
                                         <div>
                                             <p class="mb-0 font-sans font-semibold leading-normal text-sm">Total USer</p>
                                             <h5 class="mb-0 font-bold">
-                                                {{ App\Models\User::count() }}
+                                                {{ App\Models\User::where('type', 0)->count() }}
                                                 {{-- <span class="leading-normal text-sm font-weight-bolder text-lime-500">+55%</span> --}}
                                             </h5>
                                         </div>
@@ -196,7 +196,7 @@ dashboard
                                                     Complete In</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="h-[200px] overflow-auto">
+                                        <tbody class=" overflow-auto">
                                             @foreach ($item as $item)
                                                 <tr >
                                                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
@@ -216,7 +216,7 @@ dashboard
                                                         class=" align-middle bg-transparent border-b   leading-normal text-sm">
                                                         <p class="text-center">
                                                             @if ($item->id_user === 0)
-                                                                Ga Ada yang mau Bid
+                                                                No Bid
                                                             @else
                                                                 {{ $item->user->name }}
                                                             @endif

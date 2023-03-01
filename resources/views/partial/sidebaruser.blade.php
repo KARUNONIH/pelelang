@@ -14,9 +14,8 @@
             <span class="sr-only">Close menu</span>
         </button>
         <div class="py-4 overflow-y-auto">
-            <a href="https://flowbite.com/" class="flex items-center pl-2.5 mb-5">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-7" alt="Flowbite Logo" />
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Pelelang</span>
+            <a href="{{ route('user.home') }}" class="flex items-center pl-2.5 mb-5">
+                <img src="{{ asset('image/Pelelang.png') }}" class="w-[125px] h-[25px]" alt="Flowbite Logo">
             </a>
             <ul class="space-y-2">
                 <li>
@@ -84,14 +83,14 @@
                     </button>
                     <ul id="account" class="hidden m-2 bg-gray-700 rounded-xl">
                         <li>
-                            <a href="{{ route('profile.edit') }}"
+                            <a href="{{ route('admin.edit') }}"
                                 class="flex items-center w-full p-3 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-900"><i
                                     class="fa-solid fa-gavel mr-2"></i>Setting</a>
                         </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                        
+
                                 <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();" class="">
@@ -110,4 +109,3 @@
         </div>
     </div>
 
-   

@@ -24,7 +24,7 @@
                                                 <i class="fa-solid fa-user mr-2 text-lg text-black"></i>|
                                             </p>
                                             <input type="email" name="email" id="email"
-                                                :value="old('email')" placeholder="Panjul Gaming" required
+                                                value="{{ old('email') }}" placeholder="pelelang@gmail.com" required
                                                 autofocus autocomplete="username"
                                                 class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 @error('email') border-red-600 @enderror">
 
@@ -42,7 +42,7 @@
                                                 <i class="fa-solid fa-lock mr-2 text-lg text-black"></i>|
                                             </p>
                                             <input type="password" name="password" id="password"
-                                                placeholder="Manusia bernama panjul" required
+                                                placeholder="Your password" required
                                                 autocomplete="current-password"
                                                 class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 @error('password') border-red-600 @enderror">
                                             </div>
@@ -74,7 +74,7 @@
                                                 <i class="fa-solid fa-user mr-2 text-lg text-black"></i>|
                                             </p>
                                             <input type="text" name="name" id="name" autocomplete="name"
-                                                placeholder="Panjul Gaming" :value="old('name')"
+                                                placeholder="Pelelang" :value="old('name')"
                                                 class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 @error('name') border-red-600 @enderror" required>
                                         </div>
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -90,7 +90,7 @@
                                                 <i class="fa-solid fa-at mr-2 text-lg text-black"></i>|
                                             </p>
                                             <input type="email" name="email" id="email" :value="old('email')"
-                                                placeholder="Panjul@gaming.com" autocomplete="username"
+                                                placeholder="Pelelang@gaming.com" autocomplete="username"
                                                 class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 @error('email') border-red-600 @enderror" required>
                                         </div>
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -106,7 +106,7 @@
                                                 <i class="fa-solid fa-lock mr-2 text-lg text-black"></i>|
                                             </p>
                                             <input type="password" name="password" id="password" minlength="8"
-                                                placeholder="Manusia bernama panjul" autocomplete="new-password"
+                                                placeholder="Your password" autocomplete="new-password"
                                                 class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3 invalid:focus:border-red-600 @error('email') border-red-600 @enderror" required>
                                         </div>
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -123,7 +123,7 @@
                                                 <i class="fa-solid fa-lock mr-2 text-lg text-black"></i>|
                                             </p>
                                             <input type="password" name="password_confirmation" id="password_confirmation"
-                                                placeholder="Manusia bernama panjul"autocomplete="new-password"
+                                                placeholder="Confirm your password"autocomplete="new-password"
                                                 class="w-full border-2 border-black rounded-full h-[45px] pl-[55px] pr-3" required>
                                         </div>
                                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
@@ -143,8 +143,9 @@
                 </div>
             </div>
             <div class="w-[500px] h-[600px] rounded-[15px] relative z-20">
-                <img src="{{ asset('image/g1.jpg') }}" alt=""
-                    class="w-[500px] h-[600px] rounded-[15px] relative z-20">
+                <img src="{{ asset('image/g11.jpg') }}" alt=""
+                    class="w-[500px] h-[600px] brightness-50 rounded-[15px] relative z-20">
+                    <img src="{{ asset('image/Pelelang.png') }}" alt="" class="absolute top-12 right-20 z-30 w-[350px] border-b-2 border-white">
             </div>
         </div>
     </div>

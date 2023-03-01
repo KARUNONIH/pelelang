@@ -18,8 +18,6 @@ class OrderController extends Controller
        $order = order::create([
             'id_item'=>$id,
             'name' => $name,
-            'address' => $request->address,
-            'phone' => $request->phone,
             'total_price' => $harga,
             'status'=>'unpaid'
         ]);
@@ -41,12 +39,11 @@ class OrderController extends Controller
             ),
             'customer_details' => array(
                 'name' => $name,
-                'phone' => $request->phone,
             ),
         );
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
-        return view('user.checkout', compact('snapToken', 'order', 'item'));
+        return view('user.pay', compact('snapToken', 'order', 'item','name'));
     }
 
     public function callback(Request $request){

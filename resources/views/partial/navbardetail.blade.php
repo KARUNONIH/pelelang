@@ -8,13 +8,12 @@
         </div>
         <div class="flex items-center justify-center border-none rounded-xl">
 
-            <a href="https://flowbite.com/" class="flex items-center">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white ">Pelelang</span>
+            <a href="{{ route('user.home') }}" class="flex items-center">
+                <img src="{{ asset('image/Pelelang.png') }}" class="w-[150px] h-[30px]" alt="Flowbite Logo">
             </a>
         </div>
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-            <a href="{{ URL::previous() }}"
+            <a href="{{ Route('user.home') }}"
                 class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white text-sm font-medium rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">

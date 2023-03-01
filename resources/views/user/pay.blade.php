@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>User | Pay</title>
+     <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
+     <script type="text/javascript"
+     src="https://app.sandbox.midtrans.com/snap/snap.js"
+     data-client-key="{{ config('midtrans.client_key') }}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
@@ -15,13 +19,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Pembayaran</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <a href="{{ route('user.history') }}" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></a>
             </div>
             <div class="p-3 max-h-[600px] overflow-auto">
 
-                <form action="{{ route('order.checkout', ['item_id'=>$item->id]) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                @foreach ($item as $item)
+
                     <div class="mb-3">
                         <img src="{{ asset('storage/'. $item->gambar) }}" alt="" style="width:100%; height:250px; margin:auto;">
                         <p>{{ $item->nama }}</p>
@@ -30,24 +34,41 @@
                         <p style="margin:0; padding:0;">Nama Pembeli </p>
                         <p>{{ $item->user->name }}</p>
                     </div>
+                    @endforeach
 
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nomor Telepon</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1"
-                            name="phone" aria-describedby="emailHelp">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Alamat</label>
-                        <textarea class="form-control" placeholder="" id="floatingTextarea" name="address"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Checkout</button>
-                    <a href="" class="btn btn-dark">${{ $item->harga_akhir }}</a>
-                </form>
+                    <button type="button" id="pay-button" class="btn btn-primary">Checkout</button>
+                    <button  class="btn btn-dark">${{ $item->harga_akhir }}</button>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    // For example trigger on button clicked, or any time you need
+    var payButton = document.getElementById('pay-button');
+    payButton.addEventListener('click', function() {
+        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+        window.snap.pay('{{ $snapToken }}', {
+            onSuccess: function(result) {
+                /* You may add your own implementation here */
+                alert("payment success!");
+                console.log(result);
+            },
+            onPending: function(result) {
+                /* You may add your own implementation here */
+                alert("wating your payment!");
+                console.log(result);
+            },
+            onError: function(result) {
+                /* You may add your own implementation here */
+                alert("payment failed!");
+                console.log(result);
+            },
+            onClose: function() {
+                /* You may add your own implementation here */
+                alert('you closed the popup without finishing the payment');
+            }
+        })
+    });
+</script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 @include('partial.header')
 
-<body>
+<body class="">
     @include('partial.navbardetail')
     @include('partial.sidebaruser')
     @section('title')
         Detail
     @endsection
-    <section class="text-gray-700 body-font overflow-hidden bg-white">
-        <div class="container px-5 py-24 mx-auto">
+    <section class="text-gray-700 body-font overflow-hidden flex mt-[40px] bg-white">
+        <div class="container px-5 py-24 mx-auto items-center">
             <div class="lg:w-4/5 mx-auto flex flex-wrap">
                 <img alt="ecommerce"
                     class="lg:w-1/2 w-full object-cover object-center rounded border max-h-[350px] border-gray-200"
@@ -15,14 +15,18 @@
                 <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                     <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{ $item->nama }}</h1>
                     <div class="flex mb-1">
-                        <p class="text-xl mr-4"><span class="font-semibold mr-2">{{ $item->bid->count() }}</span><i
+                        <p class="text-xl mr-4"><span class="font-semibold mr-2">{{ $e }}</span><i
                                 class="fa-solid fa-user text-lg"></i></p>
                         <p class="font-semibold  border-l-2 border-gray-500 text-center pl-2 capitalize">
-                            @if ($item->id_user === 0)
-                            not yet bid
+
+                           @foreach ($f as $f)
+                            @if ($f->id_user == 0)
+                                Not Yet Bid
                             @else
-                            {{ $item->user->name }}
+
+                            {{$f->user->name}}
                             @endif
+                           @endforeach
                         </p>
                         <span class="clockdiv border-l-2 border-gray-500 px-2 ml-2 text-lg font-semibold"
                             data-date="{{ $item->complete_at }}">
@@ -41,8 +45,9 @@
                             <div class="block">
                                 <span class="title-font font-medium text-2xl text-gray-900">$@if ($item->harga_akhir === 0)
                                         {{ $item->harga_awal }}
-                                    @else
-                                        {{ $item->harga_akhir }}
+                                        @else
+                                        {{ $c }}
+
                                     @endif
                                 </span>
                             </div>
@@ -83,8 +88,8 @@
                                                             price</label>
                                                         <input type="number" name="bid_price" id="bid_price"
                                                             class="bg-gray-50 border mb-3 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-black"
-                                                            placeholder="Rp." min="{{ $item->harga_akhir + 1 }}" step="{{ $item->harga_awal / 10}}"
-                                                            required>
+                                                            placeholder="Rp." min="{{ $c + 1 }}" step="{{ $j }}"
+                                                            required autofocus>
                                                     </div>
                                                     <div>
                                                         <button type="submit"
@@ -95,7 +100,7 @@
                                                                 <span>$@if ($item->harga_akhir === 0)
                                                                         {{ $item->harga_awal }}
                                                                     @else
-                                                                        {{ $item->harga_akhir + 1 }}
+                                                                        {{ $c + 1 }}
                                                                     @endif
                                                                 </span>
                                                             </p>
@@ -111,10 +116,25 @@
 
 
                 </div>
+                @if (count($d) >= 1)
+                <div class="flex">
+
+                    <div class="w-[200px] mt-10  bg-gray-800  rounded ">
+                        <p class="text-white font-medium text-center mt-3 ">Bid Anda : {{ $bid }}</p>
+                    </div>
+                    <form action="{{ route('bid.destroy', ['item_id'=>$item->id]) }}" method="post">
+                        @csrf
+                        @method('delete')
+                    <button class="w-[50px] h-[50px] mt-10 ml-4 rounded border-2 border-red-600 hover:bg-red-600 group transition-100 hover:transiton-100"><i class="fa-solid fa-trash-can text-2xl transition-100 group-hover:transiton-100 text-red-600 group-hover:text-white" type="submit"></i></button>
+                </form>
+                </div>
+                @else
+
+                @endif
+
             </div>
         </div>
     </section>
-
     @include('partial.footer')
 </body>
 

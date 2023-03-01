@@ -1,5 +1,11 @@
-@extends('template.dashboard')
-@section('content')
+@include('partial.header')
+
+<body class="">
+    @include('partial.navbardetail')
+    @include('partial.sidebaruser')
+    @section('title')
+        Check
+    @endsection
     <div class="w-[90%] mx-auto mt-[80px] mb-5 ">
         <div class="flex border-b-2 border-b-gray-800 w-max">
             <div class="w-max text-gray-900 border-t-2 border-gray-700 rounded-l-full">
@@ -46,6 +52,9 @@
                         class="px-2 py-1 text-xs right-[60px] group-hover:opacity-0 duration-400 opacity-100 hover:duration-400 rounded-full bg-black absolute bottom-2 text-white ">
                         ${{ $item->harga_akhir }}</p>
                     <p
+                        class="px-2 py-1 text-xs right-[120px] group-hover:opacity-0 duration-400 opacity-100 hover:duration-400 rounded-full bg-black absolute bottom-2 text-white ">
+                        {{ $item->user->name }}</p>
+                    <p
                         class="px-2 py-1 text-xs right-2 group-hover:opacity-0 duration-400 opacity-100 hover:duration-400 rounded-full bg-black absolute bottom-2 text-white ">
                         <i class="fa-solid fa-user"></i> {{ $item->bid->count() }}
 
@@ -56,4 +65,8 @@
             <!-- End Food Item -->
         </div>
     </div>
-@endsection
+    @include('partial.footer')
+</body>
+
+
+</html

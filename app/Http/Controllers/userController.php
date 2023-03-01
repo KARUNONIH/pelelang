@@ -15,6 +15,9 @@ class userController extends Controller
     public function index(Request $request){
         $almost = itemModel::take(10)->where('status', 0)->orderBy('complete_at', 'ASC')->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->get();
         $new = itemModel::take(3)->where('status', 0)->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->orderBy('id', 'DESC')->get();
+        $b = itemModel::take(3)->where('status', 0)->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->orderBy('id', 'DESC')->pluck('id');
+        // $a = bidModel::whereIn('id_item', $b)->distinct('id_user')->count()->toArray();
+        // return $a;
         $kategori = kategoriModel::all();
         if ($request->kategori){
             $item = itemModel::where('kategori_id', $request->kategori)->where('status', 0)->where('complete_at', '>=', Carbon::now('Asia/Jakarta'))->paginate(8);
@@ -28,7 +31,8 @@ class userController extends Controller
             'x' => $item,
             'kategori' => $kategori,
             'almost' => $almost,
-            'new' => $new
+            'new' => $new,
+            // 'a'=>$a,
             // 'results' => $results
         ]);
     }

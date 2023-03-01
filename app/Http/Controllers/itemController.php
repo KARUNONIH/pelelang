@@ -99,11 +99,42 @@ class itemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, itemModel $itemModel, bidModel $bidModel)
     {
+        $a = Auth::id();
+        $h = user::where('type',0)->pluck('id');
+        $b = bidModel::where('id_item', $id)->where('id_user', $a)->orderBy('bid_price', 'desc')->value('bid_price');
         $item = itemModel::where('id', $id)->first();
+        $price = bidModel::where('id_item', $id)->orderBy('bid_price', 'desc')->value('bid_price');
+        if ($price == null) {
+            $c = itemModel::where('id', $id)->value('harga_awal');
+        }else {
+            $c = $price;
+        }
+        if (itemModel::where('id', $id)->value('harga_awal') <= 100) {
+
+            $j = 1;
+        }elseif(itemModel::where('id', $id)->value('harga_awal') <= 1000 && itemModel::where('id', $id)->value('harga_awal')>=101){
+            $j = 10;
+        }elseif(itemModel::where('id', $id)->value('harga_awal') <= 10000 && itemModel::where('id', $id)->value('harga_awal')>=1001){
+            $j = 100;
+        }elseif(itemModel::where('id', $id)->value('harga_awal') <= 100000 && itemModel::where('id', $id)->value('harga_awal')>=10001){
+            $j = 1000;
+        }elseif(itemModel::where('id', $id)->value('harga_awal') <= 1000000 && itemModel::where('id', $id)->value('harga_awal')>=100001){
+            $j = 10000;
+        }
+        $e = bidModel::where('id_item', $id)->distinct('id_user')->wherein('id_user', $h)->count();
+        $f = itemModel::where('id', $id)->get();
+
+        $d = bidmodel::where('id_item', $id)->where('id_user', $a)->get();
         return view('user.detail' , [
             'item' => $item,
+            'bid' => $b,
+            'c' => $c,
+            'd' => $d,
+            'f' => $f,
+            'e' => $e,
+            'j'=> $j,
 
         ]);
     }

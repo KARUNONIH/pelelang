@@ -68,7 +68,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
 
-    Route::get('/home_user', [userController::class, 'index'])->name('user.home');
+    Route::get('/home', [userController::class, 'index'])->name('user.home');
     Route::get('/cek', [userController::class, 'cek'])->name('user.cek');
     Route::get('/history', [userController::class, 'history'])->name('user.history');
     Route::get('/search', [userController::class, 'search'])->name('user.search');
@@ -76,6 +76,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::get('/item-detail/{item_id}', [bidController::class, 'show'])->name(('bid.show'));
     Route::post('/item-detail/{item_id}', [bidController::class, 'store'])->name(('bid.store'));
+    Route::delete('/item-detail/{item_id}', [bidController::class, 'destroy'])->name(('bid.destroy'));
 
     Route::get('/item/{item_id}', [itemController::class, 'show'])->name('item.show');
     Route::get('/item/{item_id}/pay', [itemController::class, 'pay'])->name('item.pay');
@@ -91,6 +92,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/item', [adminController::class, 'item'])->name('admin.item');
     Route::get('/admin/kategori', [adminController::class, 'kategori'])->name('admin.kategori');
     Route::get('/admin/role', [adminController::class, 'role'])->name('admin.role');
+    Route::post('/admin/role', [adminController::class, 'addrole'])->name('admin.addrole');
+
 });
 
 Route::middleware(['auth', 'user-access:petugas'])->group(function () {
@@ -117,22 +120,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
-
+    Route::get('/account', [adminController::class, 'edit'])->name('admin.edit');
+    Route::patch('/account', [adminController::class, 'update'])->name('admin.update');
+    Route::delete('/account', [adminController::class, 'destroy'])->name('admin.destroy');
 
 
     Route::get('/kategori', [kategoriController::class, 'index'])->name('kategori.index');
     Route::get('/pdf', [adminController::class, 'pdf'])->name('admin.pdf');
-    // Route::get('/search', [searchController::class, 'index'])->name('search.index');
-    // Route::get('/search', function(Request $request) {
-    //     $search = $request->input('search');
-    //     $data = DB::table('item')
-    //             ->where('nama', 'LIKE', '%'.$search.'%')
-    //             ->get();
-
-    //     return response()->json($data);
-    //   });
 
     Route::get('/search',[searchController::class, 'index'] )->name('search.index');
 

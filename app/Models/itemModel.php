@@ -26,6 +26,11 @@ class itemModel extends \Eloquent
     public function bid(){
         return $this->hasMany(bidModel::class, 'id_item');
     }
+
+    // public function count(){
+    //     return $this->bid()->distinct('id_user')->get();
+    // }
+
     public function kategori(){
         return $this->belongsTo(kategoriModel::class, 'kategori_id');
     }
@@ -36,10 +41,10 @@ class itemModel extends \Eloquent
     // public function user(){
     //     return $this->belongsTo()
     // }
-    
-   
 
 
-   
+
+
+
 
 }

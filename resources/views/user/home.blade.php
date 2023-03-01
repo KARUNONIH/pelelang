@@ -33,7 +33,10 @@
                             <div class="flex text-white">
 
                                 <p class="text-lg mr-3 font-normal">${{ $item->harga_akhir }}</p>
+
+
                                 <p class="text-xl"><i class="fa-solid fa-user mr-2"></i>{{ $item->bid->count() }}</p>
+
 
                             </div>
                             <a href="{{ route('item.show', ['item_id' => $item->id]) }}"
@@ -66,12 +69,12 @@
                 <div class="w-4/5 border-b-2 border-white mx-auto">
                     <h1 class="text-2xl text-center text-white pb-2 pt-2 font-bold">Hampir Selesai</h1>
                 </div>
-                <table class="mx-auto text-white text-lg mt-3 bg-gray-600 w-[100%] p-2 rounded-b-xl">
+                <table class="mx-auto text-white text-lg mt-3 w-[100%] p-2 rounded-b-xl">
                     @foreach ($almost as $end)
-                        <tr class="almost">
+                        <tr class="almost even:bg-gray-800 odd:bg-gray-700 hover:bg-gray-600">
                             <td class="w-[56%]">
                                 <a href="{{ route('item.show', ['item_id' => $end->id]) }}" class="">
-                                    <p class="ml-4 truncate pb-3  list">{{ $end->nama }}</p>
+                                    <p class="ml-4 truncate pb-3 font-medium">{{ $end->nama }}</p>
                                 </a>
                             </td>
                             <td>
@@ -178,14 +181,35 @@
 <!-- Item 2 -->
 
 </div>
-<div class="w-full h-[200px] bg-gray-800 mt-10">
-    <div class="w-4/5 mx-auto">
+<div class="w-full h-[300px] bg-gray-900 mt-10">
+    <div class="w-4/5 mx-auto block">
         <div class="flex justify-center">
             <div class="border-b-2 border-white w-max">
-                <a href="https://flowbite.com/" class="flex items-center mt-3 pb-3 px-20">
-                    <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo">
-                    <span class="self-center text-4xl font-semibold whitespace-nowrap dark:text-white ">Pelelang</span>
+                <a href="{{ route('user.home') }}" class="flex items-center mt-3 px-24">
+                    <img src="{{ asset('image/Pelelang.png') }}" class="w-[200px] h-[40px] my-3" alt="Flowbite Logo">
                 </a>
+            </div>
+        </div>
+        <div class="flex mt-8 gap-10 ml-[50px]">
+            <div class="">
+                <div class="flex mx-auto">
+                    <img src="{{ asset('image/kcnobg.png') }}" alt=""
+                        class="bg-white rounded-full w-[40px] h-[40px]">
+                        <p class="text-2xl ml-2 text-white font-semibold">Karuno Company</p>
+                </div>
+                <p class="max-w-[400px] text-justify text-white mt-2">Kami adalah perusahaan yang berdedikasi untuk menyediakan solusi perangkat lunak terbaik untuk klien kami. Kami mengembangkan berbagai jenis software, mulai dari software bisnis hingga software hiburan.</p>
+            </div>
+            <div class="w-max">
+                <h1 class="text-2xl  text-white font-semibold">Our Contact</h1>
+                <p class="text-justify text-white mt-4"><i class="fa-solid fa-phone mr-2"></i>+62895326112374</p>
+                <p class="text-justify text-white mt-2"><i class="fa-solid fa-envelope mr-2"></i>Karuno.Company@gmail.com</p>
+            </div>
+            <div class="">
+                <div class="flex ">
+                        <p class="text-2xl text-white font-semibold">Pelelang</p>
+                </div>
+                <p class="max-w-[400px] text-justify text-white mt-2">Pelelang adalah platform lelang terpercaya yang menawarkan pengalaman lelang yang aman, mudah, dan menyenangkan. Di sini, Anda dapat menemukan berbagai macam tanaman, dimulai dari Bonsai, hingga Anggrek Hitam Papua.
+                </p>
             </div>
         </div>
     </div>
