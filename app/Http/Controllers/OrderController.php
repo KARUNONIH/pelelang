@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\itemModel;
 use Illuminate\Support\Facades\Auth;
 
+
 class OrderController extends Controller
 {
     public function checkout(Request $request, $id){
@@ -15,6 +16,7 @@ class OrderController extends Controller
         $harga = itemModel::where('id', $id)->value('harga_akhir');
         $name = User::where('id',$a)->value('name');
         $item = itemModel::where('id', $id)->get();
+
        $order = order::create([
             'id_item'=>$id,
             'name' => $name,

@@ -87,7 +87,7 @@ Dashboard
                                         <div>
                                             <p class="mb-0 font-sans font-semibold leading-normal text-sm">Item Succes</p>
                                             <h5 class="mb-0 font-bold">
-                                                {{ $item->count() }}
+                                                {{ App\Models\itemModel::where('status',1)->count() }}
                                                 {{-- <span class="leading-normal text-red-600 text-sm font-weight-bolder">-2%</span> --}}
                                             </h5>
                                         </div>

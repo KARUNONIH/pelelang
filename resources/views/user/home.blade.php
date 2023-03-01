@@ -8,7 +8,7 @@
     <div class=" border-b-2 border-gray-700 w-max">
         <div class="pr-[300px]">
             <div class="rounded-tl-xl border-t-2 border-gray-700 w-max ">
-                <h1 class="text-3xl font-semibold pt-2 pb-3 pl-5 text-gray-900">Barang Lelang Baru</h1>
+                <h1 class="text-3xl font-bold pt-2 pb-3 pl-5 text-gray-900">Barang Lelang Baru</h1>
             </div>
         </div>
 
@@ -190,7 +190,7 @@
                 </a>
             </div>
         </div>
-        <div class="flex mt-8 gap-10 ml-[50px]">
+        <div class="flex mt-8 gap-10 ml-[60px]">
             <div class="">
                 <div class="flex mx-auto">
                     <img src="{{ asset('image/kcnobg.png') }}" alt=""
