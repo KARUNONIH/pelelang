@@ -186,7 +186,8 @@ class itemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        itemModel::where('id', $id)->delete();
+        return redirect()->back();
     }
 
     public function start($id ,Request $request)
@@ -216,6 +217,12 @@ public function pay($id)
             'item' => $item,
             'user'=>$user
 
+        ]);
+    }
+
+    public function updatepayment($id , request $request){
+        itemModel::where('id', $id)->update([
+            'payment' => 'paid'
         ]);
     }
 

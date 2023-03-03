@@ -36,7 +36,7 @@
                                             Status</th>
                                         <th
                                             class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-md border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                            </th>
+                                            action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,21 +69,25 @@
                                             <span class="font-semibold leading-tight text-xs text-slate-400">{{Carbon\Carbon::parse($item->complete_at)->format('Y-m-d') }}</span>
                                         </td>
                                         <td
-                                            class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                            class="p-2 align-middle text-center bg-transparent border-b whitespace-nowrap shadow-transparent">
                                             <a href="javascript:;"
-                                                class="font-semibold leading-tight text-xs text-slate-400 text-right">
-                                                Unpaid</a>
+                                                class="font-semibold leading-tight text-xs text-slate-400 text-center">
+                                                {{ $item->payment }}</a>
                                         </td>
                                         <td
-                                            class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+
+                                            class="p-2 align-middle bg-transparent border-b whitespace-nowrap text-center shadow-transparent">
+                                            @if ($item->payment == 'unpaid')
+
                                             <form action="{{ route('order.checkout', ['item_id'=>$item->id]) }}" method="post">
                                             @csrf
                                             <a href=""
-                                                class="font-semibold leading-tight text-xs text-slate-400">
-                                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                class="font-semibold leading-tight text-xs text-white  text-center">
+                                                <button type="submit" class="px-2 py-1 bg-gray-800 rounded text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     pay
                                                   </button></a>
                                                 </form>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

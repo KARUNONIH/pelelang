@@ -3,7 +3,7 @@
     Admin
 @endsection
 @section('nav')
-Barang Lelang
+    Barang Lelang
 @endsection
 @section('content')
 
@@ -81,62 +81,7 @@ Barang Lelang
                         </a>
                     </li>
 
-                    <li class="mt-0.5 w-full">
-                        <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                            href="{{ route('admin.kategori') }}">
-                            <div
-                                class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
-                                <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <title>credit-card</title>
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                            fill-rule="nonzero">
-                                            <g transform="translate(1716.000000, 291.000000)">
-                                                <g transform="translate(453.000000, 454.000000)">
-                                                    <path class="fill-slate-800 opacity-60"
-                                                        d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z">
-                                                    </path>
-                                                    <path class="fill-slate-800"
-                                                        d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
-                                                    </path>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Kategori</span>
-                        </a>
-                    </li>
-                    <li class="mt-0.5 w-full">
-                        <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                            href="{{ route('admin.role') }}">
-                            <div
-                                class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
-                                <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <title>credit-card</title>
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF"
-                                            fill-rule="nonzero">
-                                            <g transform="translate(1716.000000, 291.000000)">
-                                                <g transform="translate(453.000000, 454.000000)">
-                                                    <path class="fill-slate-800 opacity-60"
-                                                        d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z">
-                                                    </path>
-                                                    <path class="fill-slate-800"
-                                                        d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
-                                                    </path>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Account</span>
-                        </a>
-                    </li>
+
                 </ul>
             </div>
 
@@ -158,6 +103,40 @@ Barang Lelang
 
 
                 <!-- card 2 -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-dark bg-gray-800 mb-3" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Daftar Kategori </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Daftar Kategori</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table>
+                                @foreach ($kategori as $v)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}.</td>
+                                        <td>
+                                            {{ $v->nama_kategori }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark bg-gray-800"
+                                    data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="flex flex-wrap -mx-3">
                     <div class="flex-none w-full max-w-full px-3">
@@ -165,7 +144,7 @@ Barang Lelang
                             class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                             <div
                                 class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                                <h6>Projects table</h6>
+                                <h6>Tabel Barang Lelang</h6>
                             </div>
                             <div class="flex-auto px-0 pt-0 pb-2">
                                 <div class="p-0 overflow-x-auto">
@@ -233,30 +212,33 @@ Barang Lelang
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent mb-0 font-semibold leading-normal text-sm text-center">
-                                                        @if ($item->status === 0)
-                                                        <span class="clockdiv" data-date="{{ $item->complete_at }}">
-                                                            <span class="days"></span>d
-                                                            <span class="hours"></span>h
-                                                            <span class="minutes"></span>m
-                                                            <span class="seconds"></span>s
-                                                        </span>
+                                                        @if ($item->status === 0 && $item->complete_at >= Carbon\Carbon::now())
+                                                            <span class="clockdiv" data-date="{{ $item->complete_at }}">
+                                                                <span class="days"></span>d
+                                                                <span class="hours"></span>h
+                                                                <span class="minutes"></span>m
+                                                                <span class="seconds"></span>s
+                                                            </span>
                                                         @else
-                                                        {{ $item->complete_at }}
+                                                            {{ $item->complete_at }}
                                                         @endif
 
                                                     </td>
                                                     <td
                                                         class="m-0 p-0 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        @if ($item->status === 0)
-                                                                <button type="button"
-                                                                    class="text-white mx-auto bg-gradient-to-r ml-[90px] from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">On
-                                                                    Going</button>
-                                                        @elseif ($item->status === 1)
+                                                        @if ($item->status === 0 && $item->complete_at >= Carbon\Carbon::now('Asia/Jakarta'))
                                                             <button type="button"
-                                                                class="text-white mx-auto bg-gradient-to-r  from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">Ended</button>
-                                                        @else
+                                                                class="text-white mx-auto bg-gradient-to-r ml-[90px] from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">On
+                                                                Going</button>
+                                                            {{-- @elseif ($item->status === 1 )
+                                                            <button type="button"
+                                                                class="text-white mx-auto bg-gradient-to-r  from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">Ended</button> --}}
+                                                        @elseif ($item->status === 2)
                                                             <button type="button"
                                                                 class="text-white mx-auto bg-gradient-to-r  from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">Pending</button>
+                                                        @elseif ($item->complete_at < Carbon\Carbon::now('Asia/Jakarta'))
+                                                            <button type="button"
+                                                                class="text-white mx-auto bg-gradient-to-r  from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">Ended</button>
                                                         @endif
                                                     </td>
 

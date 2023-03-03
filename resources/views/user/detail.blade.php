@@ -100,7 +100,7 @@
                                                                 <span>$@if ($item->harga_akhir === 0)
                                                                         {{ $item->harga_awal }}
                                                                     @else
-                                                                        {{ $c + 1 }}
+                                                                        {{ $c + $j }}
                                                                     @endif
                                                                 </span>
                                                             </p>
@@ -120,7 +120,7 @@
                 <div class="flex">
 
                     <div class="w-[200px] mt-10  bg-gray-800  rounded ">
-                        <p class="text-white font-medium text-center mt-3 ">Bid Anda : {{ $bid }}</p>
+                        <p class="text-white font-medium text-center mt-3 ">Bid Anda : ${{ $bid }}</p>
                     </div>
                     <form action="{{ route('bid.destroy', ['item_id'=>$item->id]) }}" method="post">
                         @csrf

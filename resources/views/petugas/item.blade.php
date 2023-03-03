@@ -3,7 +3,7 @@
     Petugas
 @endsection
 @section('nav')
-Barang Lelang
+    Barang Lelang
 @endsection
 @section('content')
 
@@ -15,7 +15,7 @@ Barang Lelang
                 <i class="absolute top-0 right-0 hidden p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden"
                     sidenav-close></i>
                 <a class="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700" href="javascript:;" target="_blank">
-                <img src="{{ asset('image/Pelelanggray.png') }}" alt="" class="w-[300px] h-[60px]">
+                    <img src="{{ asset('image/Pelelanggray.png') }}" alt="" class="w-[300px] h-[60px]">
 
                 </a>
             </div>
@@ -138,7 +138,7 @@ Barang Lelang
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Buat lelang baru</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -188,7 +188,7 @@ Barang Lelang
                                             data-allowed-file-extensions="jpg jpeg png" />
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-success bg-green-600">Buat</button>
                                 </form>
                             </div>
                         </div>
@@ -203,7 +203,7 @@ Barang Lelang
                             class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                             <div
                                 class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                                <h6>Projects table</h6>
+                                <h6>Barang Lelang</h6>
                             </div>
                             <div class="flex-auto px-0 pt-0 pb-2">
                                 <div class="p-0 overflow-x-auto">
@@ -250,7 +250,7 @@ Barang Lelang
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                         <p class="mb-0 font-semibold leading-normal text-sm text-center">
-                                                            {{ $item->harga_awal }}</p>
+                                                            ${{ $item->harga_awal }}</p>
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -283,7 +283,7 @@ Barang Lelang
                                                     </td>
                                                     <td
                                                         class=" align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        @if ($item->status === 0)
+                                                        @if ($item->status == 0 && $item->complete_at >= Carbon\Carbon::now())
                                                             <form action="{{ route('item.stop', $item->id) }}"
                                                                 method="POST">
                                                                 @csrf
@@ -292,16 +292,12 @@ Barang Lelang
                                                                     data-tooltip-target="stop"
                                                                     data-tooltip-placement="bottom"><i
                                                                         class="fa-solid fa-stop"></i></button>
-                                                                <div id="stop" role="tooltip"
-                                                                    class="absolute z-10 invisible inline-block px-1.5 py-1 text-xs  font-medium text-white bg-gray-900 rounded-full shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                                                    Stop {{ $item->nama }}
-                                                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                                                </div>
+
                                                             </form>
                                                         @elseif ($item->status === 2)
-                                                            <a href="" class="btn btn-outline-warning"
+                                                            {{-- <a href="" class="btn btn-outline-warning"
                                                                 data-bs-toggle="modal" data-bs-target="#updateItem" data-url="{{ route('item.update', ['item_id'=>$item->id]) }}" data-nama="{{ $item->nama }}" data-harga_awal="{{ $item->harga_awal }}" data-deskripsi="{{ $item->deskripsi }}" data-complete_at="{{ $item->complete_at }}" data-kategori_id="{{ $item->kategori_id }}" data-gambar="{{ $item->gambar }}"><i
-                                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                                                    class="fa-solid fa-pen-to-square"></i></a> --}}
                                                             {{-- <a href="" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#UpdateModal" data-url="{{ route('item.update', ['item_id'=>$item->id]) }}" data-nama="{{ $item->nama }}" data-harga_awal="{{ $item->harga_awal }}" data-deskripsi="{{ $item->deskripsi }}" data-complete_at="{{ $item->complete_at }}" data-kategori_id="{{ $item->kategori_id }}" data-gambar="{{ $item->gambar }}"><i class="fa-solid fa-pen-to-square"></i></a> --}}
                                                             <form action="{{ route('item.play', $item->id) }}"
                                                                 method="POST" class="inline">
@@ -311,14 +307,19 @@ Barang Lelang
                                                                     data-tooltip-target="start"
                                                                     data-tooltip-placement="bottom"><i
                                                                         class="fa-regular fa-circle-play"></i></button>
-                                                                <div id="start" role="tooltip"
-                                                                    class="absolute z-10 invisible inline-block px-1.5 py-1 text-xs  font-medium text-white bg-gray-900 rounded-full shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                                                    Start {{ $item->nama }}
-                                                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                                                </div>
                                                             </form>
-
-
+                                                            <form
+                                                                action="{{ route('item.destroy', ['item_id' => $item->id]) }}"
+                                                                method="post" class="inline">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button type="submit" name="complete_at"
+                                                                    class="btn btn-outline-danger"
+                                                                    data-tooltip-target="start"
+                                                                    data-tooltip-placement="bottom"><i
+                                                                        class="fa-solid fa-trash-can"></i></button>
+                                                            </form>
+                                                        @else
                                                     </td>
                                             @endif
 

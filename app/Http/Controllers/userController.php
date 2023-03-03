@@ -54,12 +54,10 @@ class userController extends Controller
     }
     public function history(){
         $a = Auth::id();
-        $b = bidModel::where('id_user', $a)->pluck('id_item');
+        $b = itemModel::where('id_user', $a)->get();
         $d = User::where('id', $a)->value('name');
-
-        $item = itemModel::whereIn('id', $b)->where('complete_at' ,'<',Carbon::now('Asia/Jakarta'))->get();
         return view('user.history' ,[
-            'item' => $item,
+            'item' => $b,
             'nama' => $d
         ]);
     }

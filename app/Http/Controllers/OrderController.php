@@ -37,7 +37,7 @@ class OrderController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => $order->id,
-                'gross_amount' => $harga,
+                'gross_amount' => $harga * 15256,
             ),
             'customer_details' => array(
                 'name' => $name,
@@ -45,6 +45,7 @@ class OrderController extends Controller
         );
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
+        itemModel::where('id', $id)->update(['payment'=>'paid']);
         return view('user.pay', compact('snapToken', 'order', 'item','name'));
     }
 

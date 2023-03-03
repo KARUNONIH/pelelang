@@ -3,7 +3,7 @@
     Admin
 @endsection
 @section('nav')
-dashboard
+    dashboard Admin
 @endsection
 @section('content')
     </head>
@@ -87,7 +87,7 @@ dashboard
                                         <div>
                                             <p class="mb-0 font-sans font-semibold leading-normal text-sm">Item Succes</p>
                                             <h5 class="mb-0 font-bold">
-                                                {{ $report->count() }}
+                                                {{ App\Models\itemModel::where('complete_at', '<', Carbon\Carbon::now('Asia/Jakarta'))->where(function ($query) {$query->where('status', 1)->orWhere('status', 0);})->Where('id_user', '!=', 0)->count() }}
                                                 {{-- <span class="leading-normal text-red-600 text-sm font-weight-bolder">-2%</span> --}}
                                             </h5>
                                         </div>
@@ -133,8 +133,89 @@ dashboard
 
 
                 <!-- cards row 4 -->
+                <div class="flex my-3">
+                    <button type="button" class="btn btn-primary bg-gray-800  hover:bg-slate-600 mr-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-solid fa-list-ul mr-2"></i>Petugas/Admin
+                    </button>
+                    <button type="button" class="btn btn-primary bg-gray-800  hover:bg-slate-600" data-bs-toggle="modal"
+                        data-bs-target="#add">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">List Petugas/Admin</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <center><table class="border-collapse border border-slate-500">
+                                    <th class="text-center border border-slate-600">No</th>
+                                    <th class="text-center border border-slate-600">Nama</th>
+                                    <th class="text-center border border-slate-600">Role</th>
+                                    @foreach ($user as $l)
+                                    <tr>
+                                        <td class="w-[80px] text-center border border-slate-700">{{ $loop->iteration }}</td>
+                                        <td class="w-[200px] text-center border border-slate-700">{{ $l->name }}</td>
+                                        <td class="w-[150px] text-center border border-slate-700">{{$l->type}}</td>
+                                    </tr>
+                                    @endforeach
+                                </table></center>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary bg-gray-800  hover:bg-slate-600 mr-3" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="p-3 max-h-[600px] overflow-auto">
 
-                <div class="flex flex-wrap my-6 -mx-3 ">
+                                <form action="{{ Route('admin.addrole') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Nama</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" name="name"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                            name="email" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="exampleInputEmail1"
+                                            name="password" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select" aria-label="Default select example" name="type">
+                                            <option selected class="text-center">
+                                                <center>Pilih Role</center>
+                                            </option>
+                                            <option value="1">Admin</option>
+                                            <option value="2">Petugas</option>
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success bg-green-600">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap  -mx-3 ">
                     <!-- card 1 -->
 
                     <div class="w-full max-w-full px-3 mt-0 mb-1 md:mb-0 md:w-1/2 md:flex-none lg:w-2/3 lg:flex-none">
@@ -143,19 +224,17 @@ dashboard
                             <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
                                 <div class="flex flex-wrap mt-0 -mx-3">
                                     <div class="flex-none w-7/12 max-w-full px-3 mt-0 lg:w-1/2 lg:flex-none">
-                                        <h6>Lelang</h6>
+                                        <h6>Lelang Success</h6>
                                         <p class="mb-0 leading-normal text-sm">
                                             <i class="fa fa-check text-cyan-500"></i>
-                                            <span
-                                                class="ml-1 font-semibold">{{ $item->count() }}</span>
+                                            <span class="ml-1 font-semibold">{{ $item->count() }}</span>
                                             this month
                                         </p>
                                     </div>
                                     <div class="flex-none w-5/12 max-w-full px-3 my-auto text-right lg:w-1/2 lg:flex-none">
                                         <div class="relative pr-6 lg:float-right">
-                                            <a dropdown-trigger class="cursor-pointer" aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v text-slate-400"></i>
-                                            </a>
+                                            <a href="{{ route('admin.pdf') }}" class="btn btn-outline-dark"><i
+                                                    class="fa-solid fa-file-pdf"></i></a>
                                             <p class="hidden transform-dropdown-show"></p>
 
                                             <ul dropdown-menu
@@ -198,7 +277,7 @@ dashboard
                                         </thead>
                                         <tbody class=" overflow-auto">
                                             @foreach ($item as $item)
-                                                <tr >
+                                                <tr>
                                                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
                                                         <div class="flex px-2 ">
                                                             <div>
@@ -257,10 +336,10 @@ dashboard
                         <div
                             class="border-black/12.5 shadow-soft-xl relative flex max- min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
                             <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
-                                <h6>Orders overview</h6>
+                                <h6>Auction overview</h6>
                                 <p class="leading-normal text-sm">
-                                    <i class="fa fa-arrow-up text-lime-500"></i>
-                                    <span class="font-semibold">24%</span> this month
+                                    {{-- <i class="fa fa-arrow-up text-lime-500"></i> --}}
+                                    <span class="font-semibold text-lime-500">{{ $total->count() }}</span> this month
                                 </p>
                             </div>
                             <div class="flex-auto p-4">
@@ -273,23 +352,8 @@ dashboard
                                                 class="relative z-10 text-transparent ni leading-none ni-bell-55 leading-pro bg-gradient-to-tl from-green-600 to-lime-400 bg-clip-text fill-transparent"></i>
                                         </span>
                                         <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">$2400,
-                                                Design changes</h6>
-                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">22 DEC
-                                                7:20 PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 text-transparent ni leading-none ni-html5 leading-pro bg-gradient-to-tl from-red-600 to-rose-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">New order
-                                                #1832412</h6>
-                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">21 DEC
-                                                11 PM</p>
+                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">Item no bid</h6>
+                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">{{ $x->count() }} Item</p>
                                         </div>
                                     </div>
                                     <div class="relative mb-4 after:clear-both after:table after:content-['']">
@@ -299,49 +363,8 @@ dashboard
                                                 class="relative z-10 text-transparent ni leading-none ni-cart leading-pro bg-gradient-to-tl from-blue-600 to-cyan-400 bg-clip-text fill-transparent"></i>
                                         </span>
                                         <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">Server
-                                                payments for April</h6>
-                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">21 DEC
-                                                9:34 PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 text-transparent ni leading-none ni-credit-card leading-pro bg-gradient-to-tl from-red-500 to-yellow-400 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">New card
-                                                added for order #4395133</h6>
-                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">20 DEC
-                                                2:20 AM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-4 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 text-transparent ni leading-none ni-key-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">Unlock
-                                                packages for development</h6>
-                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">18 DEC
-                                                4:54 AM</p>
-                                        </div>
-                                    </div>
-                                    <div class="relative mb-0 after:clear-both after:table after:content-['']">
-                                        <span
-                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
-                                            <i
-                                                class="relative z-10 text-transparent ni leading-none ni-money-coins leading-pro bg-gradient-to-tl from-gray-900 to-slate-800 bg-clip-text fill-transparent"></i>
-                                        </span>
-                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
-                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">New order
-                                                #9583120</h6>
-                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">17 DEC
-                                            </p>
+                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">Profit this Month</h6>
+                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">${{ $xprofit }}</p>
                                         </div>
                                     </div>
                                 </div>

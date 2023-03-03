@@ -80,6 +80,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::get('/item/{item_id}', [itemController::class, 'show'])->name('item.show');
     Route::get('/item/{item_id}/pay', [itemController::class, 'pay'])->name('item.pay');
+    Route::post('/item/{item_id}/updatepayment', [itemController::class, 'updatepayment'])->name('item.updatepayment');
 
     Route::post('/item/{item_id}/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
     Route::post('/item/after', [OrderController::class, 'callback'])->name('order.callback');
@@ -126,7 +127,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/kategori', [kategoriController::class, 'index'])->name('kategori.index');
-    Route::get('/pdf', [adminController::class, 'pdf'])->name('admin.pdf');
+    Route::get('/Monthly Report', [adminController::class, 'pdf'])->name('admin.pdf');
 
     Route::get('/search',[searchController::class, 'index'] )->name('search.index');
 

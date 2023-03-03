@@ -19,6 +19,7 @@
         "nesbot/carbon": "^2.66",
         "pestphp/pest": "^1.16",
         "pestphp/pest-plugin-laravel": "^1.1",
+        "ramsey/uuid": "^4.7",
         "realrashid/sweet-alert": "^6.0"
     },
     "require-dev": {
