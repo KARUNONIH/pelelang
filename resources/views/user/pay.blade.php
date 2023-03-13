@@ -30,7 +30,7 @@
 
                     <div class="mb-3">
                         <img src="{{ asset('storage/'. $item->gambar) }}" alt="" style="width:100%; height:250px; margin:auto; ">
-                        <p class="text-xl"><span class="font-semibold">{{ $item->nama }} </span>oleh <span class="font-semibold">{{ $item->user->name }}</span> sebesar  <span class="font-semibold">${{ $item->harga_akhir }}</span></p>
+                        <p class="text-xl"><span class="font-semibold">{{ $item->nama }} </span>dibeli oleh <span class="font-semibold">{{ $item->user->name }}</span> sebesar  <span class="font-semibold">${{ $item->harga_akhir }}</span></p>
                     </div>
                     {{-- <div class="mb-3">
                         <p style="margin:0; padding:0;">Nama Pembeli </p>
@@ -52,7 +52,7 @@
         window.snap.pay('{{ $snapToken }}', {
             onSuccess: function(result) {
                 /* You may add your own implementation here */
-                alert("payment success!");
+                window.location.href = '/history'
                 console.log(result);
             },
             onPending: function(result) {

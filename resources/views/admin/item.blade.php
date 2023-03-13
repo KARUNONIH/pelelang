@@ -157,7 +157,7 @@
                                                     Nama</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Kategori</th>
+                                                    pemenang</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                                     Harga Awal</th>
@@ -188,7 +188,11 @@
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                         <p class="mb-0 font-semibold leading-normal text-sm text-center">
-                                                            {{ $item->kategori->nama_kategori }}</p>
+                                                            @if ($item->id_user == 0)
+                                                                --
+                                                            @else
+                                                                {{ $item->user->name }}
+                                                            @endif
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -226,22 +230,41 @@
                                                     </td>
                                                     <td
                                                         class="m-0 p-0 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        @if ($item->status === 0 && $item->complete_at >= Carbon\Carbon::now('Asia/Jakarta'))
-                                                            <button type="button"
-                                                                class="text-white mx-auto bg-gradient-to-r ml-[90px] from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">On
-                                                                Going</button>
-                                                            {{-- @elseif ($item->status === 1 )
-                                                            <button type="button"
-                                                                class="text-white mx-auto bg-gradient-to-r  from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">Ended</button> --}}
-                                                        @elseif ($item->status === 2)
-                                                            <button type="button"
-                                                                class="text-white mx-auto bg-gradient-to-r  from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">Pending</button>
-                                                        @elseif ($item->complete_at < Carbon\Carbon::now('Asia/Jakarta'))
-                                                            <button type="button"
-                                                                class="text-white mx-auto bg-gradient-to-r  from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-full text-xs px-2 py-1 text-center mr-2 ">Ended</button>
-                                                        @endif
+                                                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#show{{ $item->id }}">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </button>
                                                     </td>
-
+                                                    <div class="modal fade " id="show{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel{{ $item->id }}" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="text-2xl " id="itemModalLabel{{ $item->id }}">Detail Barang</h5>
+                                                                    <button type="button" class="btn-close bg-black text-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                                                                </div>
+                                                                <div class="p-2 max-h-[600px]" style="overflow-y: auto;">
+                                                                    <img src="{{ asset('storage/'.$item->gambar) }}" class="img-fluid" alt="Gambar">
+                                                                    <p class="text-xl text-justify mb-1">Nama barang <b>{{ $item->nama }}</b></p>
+                                                                    <p class="text-xl text-justify mb-1 mt-2">Status <b>@if ($item->status == 0)
+                                                                        Sedang berlangsung
+                                                                    @elseif ($item->status == 1)
+                                                                        Berakhir
+                                                                    @endif</b></p>
+                                                                    <p class="text-xl text-justify mb-1">Pemenang <b>@if ($item->id_user == 0)
+                                                                        Tidak ada
+                                                                    @else
+                                                                        {{ $item->user->name }}
+                                                                    @endif</b></p>
+                                                                    <p class="text-xl text-justify mb-1">Kategori <b>{{ $item->kategori->nama_kategori }}</b></p>
+                                                                        <p class="text-xl text-justify mb-1">Harga awal <b>{{ $item->harga_awal }}</b></p>
+                                                                        <p class="text-xl text-justify mb-1">Harga akhir <b>{{ $item->harga_akhir }}</b></p>
+                                                                        <p class="text-xl text-justify mb-1">Jumlah bid <b>{{ $item->bid->count() }}</b></p>
+                                                                        <p class="text-xl text-justify mb-1">Dibuat pada tanggal <b>{{ $item->created_at }}</b></p>
+                                                                        <p class="text-xl text-justify mb-1">Selesai pada tanggal <b>{{ $item->complete_at }}</b></p>
+                                                                        <p class="text-xl text-justify mb-1">Deskripsi <br> <b>{{ $item->deskripsi }}</b></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </tr>
                                             @endforeach
 

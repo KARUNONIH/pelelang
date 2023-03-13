@@ -49,10 +49,10 @@
                         class="px-2 py-1 text-xs left-2 group-hover:opacity-0 duration-400 opacity-100 hover:duration-400 rounded-full bg-black absolute bottom-2 text-white ">
                         {{ $item->nama }}</p>
                     <p
-                        class="px-2 py-1 text-xs right-[60px] group-hover:opacity-0 duration-400 opacity-100 hover:duration-400 rounded-full bg-black absolute bottom-2 text-white ">
+                        class="px-2 py-1 text-xs right-[50px] group-hover:opacity-0 duration-400 opacity-100 hover:duration-400 rounded-full bg-black absolute bottom-2 text-white ">
                         ${{ $item->harga_akhir }}</p>
                     <p
-                        class="px-2 py-1 text-xs right-[120px] group-hover:opacity-0 duration-400 opacity-100 hover:duration-400 rounded-full bg-black absolute bottom-2 text-white ">
+                        class="px-2 py-1 text-xs right-[100px] group-hover:opacity-0 duration-400 opacity-100 hover:duration-400 rounded-full bg-black absolute bottom-2 text-white ">
                         {{ $item->user->name }}</p>
                     <p
                         class="px-2 py-1 text-xs right-2 group-hover:opacity-0 duration-400 opacity-100 hover:duration-400 rounded-full bg-black absolute bottom-2 text-white ">

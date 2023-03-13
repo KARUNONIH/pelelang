@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 
 class userController extends Controller
@@ -91,6 +93,15 @@ class userController extends Controller
       return response()->json([
          'employees' => $employees
       ]);
+    }
+
+    public function invoice($id){
+        $item = itemModel::where('id', $id)->first();
+
+        $pdf = PDF::loadView('invoice', [
+            'item' => $item,
+        ])->setPaper('a4', 'potrait');
+        return $pdf->stream();
     }
 
 }

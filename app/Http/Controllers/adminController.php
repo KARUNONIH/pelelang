@@ -49,17 +49,19 @@ $profit = $akhir - $awal;
 // $report = itemModel::where('complete_at', '<', date('y-m-d'))->orderBy('complete_at')->gr;
 $report = itemModel::where('status', 1)->get();
 // $item = itemModel::take(6)->orderBy('complete_at', 'DESC')->where('complete_at', '>=' ,date('y-m-d'))->get();
-        $item = itemModel::where(function ($query) {
-            $query->where('status', 1)->orWhere('status', 0);})->where('id_user', '!=', 0)->whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->get();
-            $x = itemModel::where('status', 1)->where(function ($query) {
-                $query->where('id_user', 0);
-            })->whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->get();
-            $xcountawal = $item->sum('harga_awal');
-            $xcountakhir = $item->sum('harga_akhir');
-            $xprofit = $xcountakhir - $xcountawal;
-            $total = itemModel::where('complete_at', '<', Carbon::now('Asia/Jakarta'))->where(function($q){$q->where('status',0)->orWhere('status',1);})->whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->get();
-            $itema = $item->count() + $total->count();
+$x = itemModel::where('status', 1)->where(function ($query) {
+    $query->where('id_user', 0);
+})->whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->get();
+$item = itemModel::where(function ($query) {
+    $query->where('status', 1)->orWhere('status', 0);})->where('complete_at', '<=', Carbon::now('Asia/Jakarta'))->where('id_user', '!=', 0)->whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->get();
+    $xcountawal = $item->sum('harga_awal');
+    $xcountakhir = $item->sum('harga_akhir');
+    $xprofit = $xcountakhir - $xcountawal;
+    $total = itemModel::whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->where('status', '!=', 2)->get();
+    $itema = $item->count() + $total->count();
 $user = User::where('type', '!=', '0')->orderBy('type', 'asc')->get();
+$ongoing = itemModel::whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->where('complete_at', '>=' , Carbon::now('Asia/Jakarta'))->where('status', '!=', 2)->get();
+
         return view('admin.dashboard' , [
             'profit' => $profit,
             'item' => $item,
@@ -68,7 +70,7 @@ $user = User::where('type', '!=', '0')->orderBy('type', 'asc')->get();
             'user' => $user,
             'x'=>$x,
             'xprofit'=> $xprofit,
-            'itema'=>$itema
+            'ongoing'=>$ongoing
         ]);
     }
     public function item(){
@@ -91,11 +93,14 @@ $user = User::where('type', '!=', '0')->orderBy('type', 'asc')->get();
 
     public function pdf(){
         $item = itemModel::where(function ($query) {
-            $query->where('status', 1)->orWhere('status', 0);})->where('id_user', '!=', 0)->whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->get();        $date = Carbon::now()->toDateString();
+            $query->where('status', 1)->orWhere('status', 0);})->where('id_user', '!=', 0)->whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->get();
+            $date = Carbon::now()->toDateString();
+        $total = $item->sum('harga_akhir') - $item->sum('harga_awal');
 
         $pdf = PDF::loadView('pdfadmin', [
             'item' => $item,
-            'date' => $date
+            'date' => $date,
+            'total' => $total
         ])->setPaper('a4', 'potrait');
         return $pdf->stream();
     }

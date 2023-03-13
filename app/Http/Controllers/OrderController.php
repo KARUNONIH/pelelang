@@ -7,6 +7,7 @@ use App\Models\order;
 use App\Models\User;
 use App\Models\itemModel;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 
 class OrderController extends Controller
@@ -45,7 +46,6 @@ class OrderController extends Controller
         );
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
-        itemModel::where('id', $id)->update(['payment'=>'paid']);
         return view('user.pay', compact('snapToken', 'order', 'item','name'));
     }
 
@@ -55,7 +55,12 @@ class OrderController extends Controller
         if($hashed == $request->signature_key){
             if($request->transaction_status == 'capture'){
                 $order = order::find($request->order_id);
-                $order->update(['status' => 'paid']);
+                $order->status = 'paid';
+                $order->Save();
+
+                $a = order::where('id', $request->order_id)->value('id_item');
+                itemModel::where('id', $a)->update(['payment' => 'paid', 'paid_at' => Carbon::now('Asia/Jakarta')]);
+
             }
         }
     }

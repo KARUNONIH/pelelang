@@ -87,6 +87,10 @@
                                                     pay
                                                   </button></a>
                                                 </form>
+                                                @else
+                                                <a href="{{ route('user.invoice',['item_id'=>$item->id]) }}" class="font-semibold leading-tight text-xs text-white px-2 py-1 bg-gray-800 rounded text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    invoice
+                                                  </a>
                                             @endif
                                         </td>
                                     </tr>

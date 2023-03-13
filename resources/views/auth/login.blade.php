@@ -145,11 +145,17 @@
             <div class="w-[500px] h-[600px] rounded-[15px] relative z-20">
                 <img src="{{ asset('image/g11.jpg') }}" alt=""
                     class="w-[500px] h-[600px] brightness-50 rounded-[15px] relative z-20">
-                    <img src="{{ asset('image/Pelelang.png') }}" alt="" class="absolute top-12 right-20 z-30 w-[350px] border-b-2 border-white">
+                    <div class="absolute top-20 left-[110px] pb-3 z-30">
+                        <div class="border-b-2 border-white w-max">
+                            <img src="{{ asset('image/Pelelang.png') }}" alt="" class=" w-[285px] pb-2 px-10">
+                        </div>
+                        <p class="text-center text-lg    text-white font-semibold">Your Auction Website</p>
+                    </div>
             </div>
         </div>
     </div>
-
+    <div id="preloader"></div>
+    <script src="{{ asset('js/landing.js') }}"></script>
     @include('partial.footer')
 
 </body>

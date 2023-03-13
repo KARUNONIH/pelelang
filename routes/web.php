@@ -83,7 +83,8 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::post('/item/{item_id}/updatepayment', [itemController::class, 'updatepayment'])->name('item.updatepayment');
 
     Route::post('/item/{item_id}/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
-    Route::post('/item/after', [OrderController::class, 'callback'])->name('order.callback');
+
+    Route::get('/invoice/{item_id}', [userController::class, 'invoice'])->name('user.invoice');
 
 });
 
@@ -104,6 +105,7 @@ Route::middleware(['auth', 'user-access:petugas'])->group(function () {
     Route::put('/item/{item_id}', [itemController::class, 'update'])->name('item.update');
     Route::post('/item/{id}/stop', [itemController::class, 'stop'])->name('item.stop');
     Route::post('/item/{id}/play', [itemController::class, 'start'])->name('item.play');
+    Route::post('/item/fresh',[itemController::class, 'fresh'])->name('item.fresh');
     Route::delete('/item/{item_id}', [itemController::class, 'destroy'])->name('item.destroy');
 
     Route::get('/kategori', [kategoriController::class, 'index'])->name('kategori.index');

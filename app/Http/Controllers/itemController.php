@@ -63,7 +63,7 @@ class itemController extends Controller
         }
 
         $a = $request->complete_at;
-        if($a < Carbon::now()){
+        if($a < Carbon::now('Asia/Jakarta')){
             itemModel::create([
                 'nama' => $request->nama,
                 'harga_awal' => $request->harga_awal,
@@ -159,23 +159,18 @@ class itemController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $validate=  $request->validate([
-            'nama' =>'required',
-            // 'harga_awal' =>'required',
-            // 'deskripsi' =>'required',
-            // 'complete_at' =>'required',
-            'gambar' =>'required',
-            // 'kategori_id' =>'required',
+    //   $request->validate([
+    //     'complete_at' => 'required',
+    //     'kategori_id' => 'required'
+    //   ]);
 
+        itemModel::where('id', $id)->update([
+            'complete_at' => $request->complete_at,
+            'kategori_id' => $request->kategori_id,
+            'nama' => $request->nama,
+            'harga_awal' => $request->harga_awal,
+            'deskripsi' => $request->deskripsi,
         ]);
-
-        if($request->file('gambar')){
-            if($request->oldImage){
-                Storage::delete($request->oldImage);
-            }
-            $validate['gambar'] = $request->file('gambar')->store('item_image');
-        }
-        itemModel::where('id', $id)->update($validate);
         return redirect()->back();
     }
     /**
@@ -199,12 +194,11 @@ class itemController extends Controller
     }
     public function stop($id)
 {
-    $lelang = itemModel::find($id);
-    $lelang->status = "1";
-    $lelang->save();
+
 
         itemModel::where('id', $id)->update([
-            'complete_at' => Carbon::now('Asia/Jakarta')
+            'complete_at' => Carbon::now('Asia/Jakarta'),
+            'status' => 1,
         ]);
 
     return redirect()->back()->with('success', 'Lelang berhasil dihentikan.');
@@ -224,6 +218,11 @@ public function pay($id)
         itemModel::where('id', $id)->update([
             'payment' => 'paid'
         ]);
+    }
+
+    public function fresh(){
+        itemModel::where('complete_at', '<=', Carbon::now('Asia/Jakarta'))->update(['status' => 1]);
+        return redirect()->back();
     }
 
 

@@ -38,6 +38,10 @@ class itemModel extends \Eloquent
     public function user(){
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    public function order(){    
+        return $this->belongsTo(orderModel::class);
+    }
     // public function user(){
     //     return $this->belongsTo()
     // }

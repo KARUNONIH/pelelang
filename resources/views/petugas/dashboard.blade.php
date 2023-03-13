@@ -186,17 +186,17 @@
                                         <thead class="align-bottom">
                                             <tr>
                                                 <th
-                                                    class="px-6 py-3 font-bold tracking-normal text-left uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
-                                                    Item Name</th>
+                                                    class="px-6 py-3 font-bold tracking-normal text-center uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
+                                                    Barang</th>
                                                 <th
                                                     class="px-6 py-3 pl-2 font-bold tracking-normal text-center uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
-                                                    Higthest Bid User</th>
+                                                    pemenang</th>
                                                 <th
                                                     class="px-6 py-3 font-bold tracking-normal text-center uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
-                                                    Final Bid</th>
+                                                    penawaran terakhir</th>
                                                 <th
-                                                    class="px-6 py-3 font-bold tracking-normal text-center uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
-                                                    Complete In</th>
+                                                    class="px-6 py-3 font-bold tracking-normal text-left uppercase align-middle bg-transparent border-b letter border-b-solid text-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">
+                                                    Waktu berakhir</th>
                                             </tr>
                                         </thead>
                                         <tbody class=" overflow-auto">
@@ -216,7 +216,7 @@
                                                         </div>
                                                     </td>
                                                     <td
-                                                        class=" align-middle bg-transparent border-b   leading-normal text-sm">
+                                                        class=" align-middle bg-transparent border-b  text-center leading-normal text-sm">
                                                         <p class="text-center">
                                                             @if ($item->id_user === 0)
                                                                 No Bid
@@ -240,7 +240,7 @@
                                                             <div>
                                                                 <div>
                                                                     <span
-                                                                        class="font-semibold leading-tight text-center text-xs">{{ $item->complete_at }}</span>
+                                                                        class="font-semibold leading-tight text-center text-xs">{{Carbon\Carbon::parse($item->complete_at)->format('Y-m-d')}}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -269,6 +269,17 @@
                             <div class="flex-auto p-4">
                                 <div
                                     class="before:border-r-solid relative before:absolute before:top-0 before:left-4 before:h-full before:border-r-2 before:border-r-slate-100 before:content-[''] before:lg:-ml-px">
+                                    <div class="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
+                                        <span
+                                            class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">
+                                            <i
+                                                class="relative z-10 text-transparent ni leading-none ni-bell-55 leading-pro bg-gradient-to-tl from-green-600 to-lime-400 bg-clip-text fill-transparent"></i>
+                                        </span>
+                                        <div class="ml-11.252 pt-1.4 lg:max-w-120 relative -top-1.5 w-auto">
+                                            <h6 class="mb-0 font-semibold leading-normal text-sm text-slate-700">Item on going</h6>
+                                            <p class="mt-1 mb-0 font-semibold leading-tight text-xs text-slate-400">{{ $ongoing->count() }} Item</p>
+                                        </div>
+                                    </div>
                                     <div class="relative mb-4 mt-0 after:clear-both after:table after:content-['']">
                                         <span
                                             class="w-6.5 h-6.5 text-base absolute left-4 z-10 inline-flex -translate-x-1/2 items-center justify-center rounded-full bg-white text-center font-semibold">

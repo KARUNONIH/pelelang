@@ -13,8 +13,14 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
+     protected $commands = [
+        Commands\UpdateBiddingStatus::class,
+    ];
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('bidding:update-status')->everyMinute();
+
         // $schedule->command('inspire')->hourly();
     }
 

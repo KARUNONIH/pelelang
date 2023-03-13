@@ -127,10 +127,23 @@
 
                 <!-- Main modal -->
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-dark bg-gray-600 mb-3" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                    Add Item
-                </button>
+
+                    <button type="button" class="btn btn-dark bg-gray-600 mb-3" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Add Item
+                    </button>
+                    {{-- <a href="{{ route('item.fresh') }}" class="btn btn-outline-success"><i class="fa-solid fa-rotate-right"></i></a> --}}
+                    <form action="{{ route('item.fresh') }}"
+                    method="POST" class="d-inline ">
+                    @csrf
+                    <button type="submit"
+                        class="btn btn-outline-success mb-3"
+                        data-tooltip-target="stop"
+                        data-tooltip-placement="bottom" title="Stop"><i class="fa-solid fa-rotate-right"></i></button>
+
+
+                </form>
+
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -142,7 +155,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <div class="p-3 max-h-[600px] overflow-auto">
+                            <div class="p-3 max-h-[600px]" style="overflow-y: auto;">
 
                                 <form action="{{ Route('item.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -160,8 +173,8 @@
 
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Deskripsi</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            name="deskripsi" aria-describedby="emailHelp">
+                                        <textarea class="form-control" id="exampleInputEmail1"
+                                            name="deskripsi" aria-describedby="emailHelp"></textarea>
                                     </div>
 
                                     <div class="mb-3">
@@ -216,7 +229,7 @@
                                                     Nama</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Kategori</th>
+                                                    Tanggal Ditambahkan</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                                     Harga Awal</th>
@@ -228,7 +241,7 @@
                                                     Jumlah bid</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Waktu Selesai</th>
+                                                    selesai Dalam</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -245,7 +258,7 @@
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                         <p class="mb-0 font-semibold leading-normal text-sm text-center">
-                                                            {{ $item->kategori->nama_kategori }}</p>
+                                                            {{ $item->created_at}}</p>
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -270,7 +283,7 @@
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent mb-0 font-semibold leading-normal text-sm text-center">
                                                         @if ($item->status === 2)
-                                                            {{ $item->complete_at }}
+                                                            Belum Dimulai
                                                         @else
                                                             <span class="clockdiv " data-date="{{ $item->complete_at }}">
                                                                 <span class="days  "></span>d
@@ -283,9 +296,9 @@
                                                     </td>
                                                     <td
                                                         class=" align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                        @if ($item->status == 0 && $item->complete_at >= Carbon\Carbon::now())
-                                                            <form action="{{ route('item.stop', $item->id) }}"
-                                                                method="POST">
+                                                        @if ($item->status == 0 && $item->complete_at >= Carbon\Carbon::now('Asia/Jakarta'))
+                                                            {{-- <form action="{{ route('item.stop', $item->id) }}"
+                                                                method="POST" class="d-inline">
                                                                 @csrf
                                                                 <button type="submit" name="complete_at" value="1"
                                                                     class="btn btn-outline-danger"
@@ -293,13 +306,24 @@
                                                                     data-tooltip-placement="bottom"><i
                                                                         class="fa-solid fa-stop"></i></button>
 
-                                                            </form>
-                                                        @elseif ($item->status === 2)
+
+                                                            </form> --}}
+                                                            <a href="" class="btn btn-outline-warning"
+                                                            data-bs-toggle="modal" data-bs-target="#updateItem"
+                                                            data-url="{{ route('item.update', ['item_id' => $item->id]) }}"
+                                                            data-stop="{{ route('item.stop', ['id' => $item->id]) }}"
+                                                            data-complete_at="{{ $item->complete_at }}"
+                                                            data-id="{{ $item->id }}"
+                                                            data-kategori_id="{{ $item->kategori_id }}"
+                                                            data-nama_kategori="{{ $item->kategori->nama_kategori }}">
+                                                            <i class="fa-solid fa-pen-to-square"></i></a>
+                                                        @elseif ($item->status === 0 && $item->complete_at <= Carbon\Carbon::now('Asia/Jakarta'))
+
                                                             {{-- <a href="" class="btn btn-outline-warning"
                                                                 data-bs-toggle="modal" data-bs-target="#updateItem" data-url="{{ route('item.update', ['item_id'=>$item->id]) }}" data-nama="{{ $item->nama }}" data-harga_awal="{{ $item->harga_awal }}" data-deskripsi="{{ $item->deskripsi }}" data-complete_at="{{ $item->complete_at }}" data-kategori_id="{{ $item->kategori_id }}" data-gambar="{{ $item->gambar }}"><i
                                                                     class="fa-solid fa-pen-to-square"></i></a> --}}
                                                             {{-- <a href="" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#UpdateModal" data-url="{{ route('item.update', ['item_id'=>$item->id]) }}" data-nama="{{ $item->nama }}" data-harga_awal="{{ $item->harga_awal }}" data-deskripsi="{{ $item->deskripsi }}" data-complete_at="{{ $item->complete_at }}" data-kategori_id="{{ $item->kategori_id }}" data-gambar="{{ $item->gambar }}"><i class="fa-solid fa-pen-to-square"></i></a> --}}
-                                                            <form action="{{ route('item.play', $item->id) }}"
+                                                            {{-- <form action="{{ route('item.play', $item->id) }}"
                                                                 method="POST" class="inline">
                                                                 @csrf
                                                                 <button type="submit" name="complete_at" value="0"
@@ -307,8 +331,27 @@
                                                                     data-tooltip-target="start"
                                                                     data-tooltip-placement="bottom"><i
                                                                         class="fa-regular fa-circle-play"></i></button>
-                                                            </form>
-                                                            <form
+                                                            </form> --}}
+                                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#show{{ $item->id }}">
+                                                                <i class="fa-solid fa-eye"></i>
+                                                            </button>
+                                                            @elseif ($item->status == 2)
+                                                            <a href="" class="btn btn-outline-dark"
+                                                            data-bs-toggle="modal" data-bs-target="#updateItemPending"
+                                                            data-url="{{ route('item.update', ['item_id' => $item->id]) }}"
+                                                            data-stop="{{ route('item.stop', ['id' => $item->id]) }}"
+                                                            data-complete_at="{{ $item->complete_at }}"
+                                                            data-id="{{ $item->id }}"
+                                                            data-kategori_id="{{ $item->kategori_id }}"
+                                                            data-nama="{{ $item->nama }}"
+                                                            data-harga_awal="{{ $item->harga_awal }}"
+                                                            data-deskripsi="{{ $item->deskripsi }}"
+                                                            data-destroy="{{ route('item.destroy', ['item_id' => $item->id]) }}"
+                                                            data-play="{{ route('item.play', $item->id) }}"
+                                                            data-nama_kategori="{{ $item->kategori->nama_kategori }}">
+                                                            <i class="fa-solid fa-feather"></i></a>
+                                                        @else
+                                                        {{-- <form
                                                                 action="{{ route('item.destroy', ['item_id' => $item->id]) }}"
                                                                 method="post" class="inline">
                                                                 @csrf
@@ -318,12 +361,47 @@
                                                                     data-tooltip-target="start"
                                                                     data-tooltip-placement="bottom"><i
                                                                         class="fa-solid fa-trash-can"></i></button>
-                                                            </form>
-                                                        @else
+                                                            </form> --}}
+                                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#show{{ $item->id }}">
+                                                                <i class="fa-solid fa-eye"></i>
+                                                            </button>
                                                     </td>
                                             @endif
 
                                             </tr>
+                                            <div class="modal fade " id="show{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel{{ $item->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="text-2xl " id="itemModalLabel{{ $item->id }}">Detail Barang</h5>
+                                                            <button type="button" class="btn-close bg-black text-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                                                        </div>
+                                                        <div class="p-2 max-h-[600px]" style="overflow-y: auto;">
+                                                            <img src="{{ asset('storage/'.$item->gambar) }}" class="img-fluid" alt="Gambar">
+                                                            <p class="text-xl text-justify mb-1">Nama barang <b>{{ $item->nama }}</b></p>
+                                                            <p class="text-xl text-justify mb-1 mt-2">Status <b>@if ($item->status == 0)
+                                                                Sedang berlangsung
+                                                            @elseif ($item->status == 1)
+                                                                Berakhir
+                                                                @else
+                                                                Pending
+                                                            @endif</b></p>
+                                                            <p class="text-xl text-justify mb-1">Pemenang <b>@if ($item->id_user == 0)
+                                                                Tidak ada
+                                                            @else
+                                                                {{ $item->user->name }}
+                                                            @endif</b></p>
+                                                                <p class="text-xl text-justify mb-1">Kategori <b>{{ $item->kategori->nama_kategori }}</b></p>
+                                                                <p class="text-xl text-justify mb-1">Harga awal <b>{{ $item->harga_awal }}</b></p>
+                                                                <p class="text-xl text-justify mb-1">Harga akhir <b>{{ $item->harga_akhir }}</b></p>
+                                                                <p class="text-xl text-justify mb-1">Jumlah bid <b>{{ $item->bid->count() }}</b></p>
+                                                                <p class="text-xl text-justify mb-1">Dibuat pada tanggal <b>{{ $item->created_at }}</b></p>
+                                                                <p class="text-xl text-justify mb-1">Selesai pada tanggal <b>{{ $item->complete_at }}</b></p>
+                                                                <p class="text-xl text-justify mb-1">Deskripsi <br> <b>{{ $item->deskripsi }}</b></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -373,6 +451,16 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="updateItemPending" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" id="pending">
+                </div>
+            </div>
+        </div>
+
+
+
+
         {{-- <div class="modal fade" id="update-item" tabindex="-1" role="dialog" aria-labelledby="update-modal-label">
             <div class="modal-dialog" role="document">
               <div class="modal-content">

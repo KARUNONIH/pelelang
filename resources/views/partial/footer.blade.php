@@ -81,7 +81,7 @@
         });
     });
 </script> --}}
-
+<script src="{{ asset('js/landing.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#search').on('keyup', function() {
@@ -106,7 +106,7 @@
                         });
                         $('#error').hide();
                         $('#result').show();
-                    } else {
+                    } else{
                         $('#error').show();
                         $('#result').hide();
                     }

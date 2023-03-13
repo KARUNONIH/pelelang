@@ -186,7 +186,7 @@
         <div class="flex justify-center">
             <div class="border-b-2 border-white w-max">
                 <a href="{{ route('user.home') }}" class="flex items-center mt-3 px-24">
-                    <img src="{{ asset('image/Pelelang.png') }}" class="w-[200px] h-[40px] my-3" alt="Flowbite Logo">
+                    <img src="{{ asset('image/Pelelang.png') }}" class="w-[200px] h-[45px] my-3" alt="Flowbite Logo">
                 </a>
             </div>
         </div>

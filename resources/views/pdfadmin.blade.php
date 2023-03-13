@@ -1,6 +1,6 @@
 <style type="text/css">
     table {width: 100%; border-collapse: collapse;}
-    td, th {border: solid 1px black; text-align: center;}
+    td, th {border: solid 1px black; text-align: center; text-transform: capitalize;}
     h1 {text-align: center;}
     span {float: right;}
   </style>
@@ -24,10 +24,13 @@
     <thead>
       <tr>
         <th>No</th>
-        <th>Item Name</th>
-        <th>HIGTHEST BID USER</th>
-        <th>COMPLETE at</th>
-        <th>FINAL BID</th>
+        <th>Nama Barang</th>
+        <th>Pemenang</th>
+        <th>Tanggal Dibuat</th>
+        <th>Tanggal Selesai</th>
+        <th>Harga Awal</th>
+        <th>harga akhir</th>
+        <th>Profit</th>
       </tr>
     </thead>
     <tbody>
@@ -36,11 +39,18 @@
           <td>{{$loop->iteration}}</td>
           <td>{{$item->nama}}</td>
           <td>{{ $item->user->name }}</td>
-          <td>{{$item->complete_at}}</td>
+          <td>{{Carbon\Carbon::parse($item->created_at)->format('Y-m-d')}}</td>
+          <td>{{Carbon\Carbon::parse($item->complete_at)->format('Y-m-d')}}</td>
+          <td>${{$item->harga_awal}}</td>
           <td>${{$item->harga_akhir}}</td>
+          <td>${{ $item->harga_akhir - $item->harga_awal }}</td>
         </tr>
 
         @endforeach
+        <tr>
+            <td colspan="7">Total profit</td>
+            <td>${{ $total }}</td>
+        </tr>
       {{-- {% for item in invoice.lines %} --}}
       {{-- {% endfor %}
       <tr>
