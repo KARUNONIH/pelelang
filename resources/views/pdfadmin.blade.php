@@ -6,7 +6,7 @@
   </style>
 
   <span>
-    <b>Invoice No.</b>1<br>
+    <b>Report ID </b>{{ $pdfid }}<br>
     <b>Date </b>{{$date}}<br>
   </span>
 

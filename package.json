@@ -19,6 +19,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "datatables.net-dt": "^1.13.4",
         "dropify": "^0.2.2",
         "sweetalert2": "^11.7.2"
     }

@@ -138,26 +138,30 @@
                     </div>
                 </div>
 
-                <div class="flex flex-wrap -mx-3">
-                    <div class="flex-none w-full max-w-full px-3">
+                <div class="flex flex-wrap -mx-3 ">
+                    <div class="flex-none w-[100%] px-3 ">
                         <div
-                            class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+                            class="relative flex flex-col min-w-0 mb-6 break-words  bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                             <div
-                                class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                                class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl  border-b-transparent">
                                 <h6>Tabel Barang Lelang</h6>
                             </div>
-                            <div class="flex-auto px-0 pt-0 pb-2">
-                                <div class="p-0 overflow-x-auto">
+                            <div class="flex-auto px-0 pt-0 pb-2 ">
+                                <div class="p-0  ">
                                     <table
-                                        class="items-center justify-center w-full mb-0 align-top border-gray-200 text-slate-500">
-                                        <thead class="align-bottom">
+                                        class="items-center justify-center  w-full mb-0 align-top border-gray-200 text-slate-500" id="myTable">
+                                        <thead class="align-bottom w-full">
                                             <tr>
+                                                <th class="hidden"></th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                                     Nama</th>
+                                                    <th
+                                                        class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                                        status</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    pemenang</th>
+                                                    Kategori</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                                     Harga Awal</th>
@@ -169,30 +173,44 @@
                                                     Jumlah bid</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Waktu Selesai</th>
-                                                <th
-                                                    class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    status</th>
+                                                     Keterangan Waktu</th>
+                                                    <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($item as $item)
                                                 <tr class="border-b">
+                                                    <td class="hidden">
+                                                        {{ $item->id }}
+                                                    </td>
+
                                                     <td
-                                                        class="p-2 align-middle bg-transparent whitespace-nowrap shadow-transparent flex items-center h-full">
+                                                        class="p-2 align-middle bg-transparent whitespace-nowrap border-b  shadow-transparent flex items-center h-full">
                                                         <img src="{{ asset('storage/' . $item->gambar) }}" alt=""
                                                             class=" items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl">
                                                         <p class="font-semibold leading-normal text-sm">
                                                             {{ $item->nama }}</p>
                                                     </td>
                                                     <td
+                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent mb-0 font-semibold leading-normal text-sm text-center">
+                                                    <p class="mb-0 font-semibold leading-normal text-sm text-center">
+                                                        @if ($item->status == 0 && $item->complete_at >= Carbon\Carbon::now('Asia/Jakarta'))
+                                                                On Going
+                                                        @elseif (($item->status == 1 || $item->status == 0) && $item->Complete_at <= Carbon\Carbon::now('Asia/Jakarta'))
+                                                            Ended
+                                                            @else
+                                                            Pending
+                                                        @endif</p>
+                                                </td>
+                                                    <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                         <p class="mb-0 font-semibold leading-normal text-sm text-center">
-                                                            @if ($item->id_user == 0)
+                                                            {{-- @if ($item->id_user == 0)
                                                                 --
                                                             @else
                                                                 {{ $item->user->name }}
-                                                            @endif
+                                                            @endif --}}
+                                                            {{ $item->kategori->nama_kategori }}
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -216,18 +234,20 @@
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent mb-0 font-semibold leading-normal text-sm text-center">
-                                                        @if ($item->status === 0 && $item->complete_at >= Carbon\Carbon::now())
+                                                        @if ($item->status === 0 || $item->status == 1)
                                                             <span class="clockdiv" data-date="{{ $item->complete_at }}">
                                                                 <span class="days"></span>d
                                                                 <span class="hours"></span>h
                                                                 <span class="minutes"></span>m
                                                                 <span class="seconds"></span>s
                                                             </span>
+                                                        @elseif ($item->status == 2)
+                                                            Belum Dimulai
                                                         @else
-                                                            {{ $item->complete_at }}
                                                         @endif
 
                                                     </td>
+
                                                     <td
                                                         class="m-0 p-0 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#show{{ $item->id }}">
@@ -244,10 +264,13 @@
                                                                 <div class="p-2 max-h-[600px]" style="overflow-y: auto;">
                                                                     <img src="{{ asset('storage/'.$item->gambar) }}" class="img-fluid" alt="Gambar">
                                                                     <p class="text-xl text-justify mb-1">Nama barang <b>{{ $item->nama }}</b></p>
-                                                                    <p class="text-xl text-justify mb-1 mt-2">Status <b>@if ($item->status == 0)
+                                                                    <p class="text-xl text-justify mb-1 mt-2">Status <b>
+                                                                        @if ($item->status == 0)
                                                                         Sedang berlangsung
                                                                     @elseif ($item->status == 1)
                                                                         Berakhir
+                                                                        @else
+                                                                        Pending
                                                                     @endif</b></p>
                                                                     <p class="text-xl text-justify mb-1">Pemenang <b>@if ($item->id_user == 0)
                                                                         Tidak ada

@@ -43,6 +43,10 @@
     <link rel="stylesheet" href="{{ asset('css/dropify.css') }}">
     <script src="{{ asset('js/dropify.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/datatable.css') }}">
+
+
+
 
 
 

@@ -31,10 +31,10 @@ class adminController extends Controller
 {use AuthenticatesUsers;
     protected $redirectTo = RouteServiceProvider::HOME;
     public function index(){
-        $startDateCurrent = Carbon::now()->startOfMonth();
-$endDateCurrent = Carbon::now()->endOfMonth();
-$startDateLast = Carbon::now()->subMonth()->startOfMonth();
-$endDateLast = Carbon::now()->subMonth()->endOfMonth();
+        $startDateCurrent = Carbon::now('Asia/Jakarta')->startOfMonth();
+$endDateCurrent = Carbon::now('Asia/Jakarta')->endOfMonth();
+$startDateLast = Carbon::now('Asia/Jakarta')->subMonth()->startOfMonth();
+$endDateLast = Carbon::now('Asia/Jakarta')->subMonth()->endOfMonth();
 $countCurrent = itemModel::where('id_user', '!=', 0)->whereBetween('complete_at', [$startDateCurrent, $endDateCurrent])->count();
 $countLast = itemModel::where('id_user', '!=', 0)->whereBetween('complete_at', [$startDateLast, $endDateLast])->count();
 
@@ -60,6 +60,7 @@ $item = itemModel::where(function ($query) {
     $total = itemModel::whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->where('status', '!=', 2)->get();
     $itema = $item->count() + $total->count();
 $user = User::where('type', '!=', '0')->orderBy('type', 'asc')->get();
+        $kategori = kategoriModel::all();
 $ongoing = itemModel::whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->where('complete_at', '>=' , Carbon::now('Asia/Jakarta'))->where('status', '!=', 2)->get();
 
         return view('admin.dashboard' , [
@@ -70,7 +71,8 @@ $ongoing = itemModel::whereMonth('complete_at',Carbon::now('Asia/Jakarta')->mont
             'user' => $user,
             'x'=>$x,
             'xprofit'=> $xprofit,
-            'ongoing'=>$ongoing
+            'ongoing'=>$ongoing,
+            'kategori'=> $kategori
         ]);
     }
     public function item(){
@@ -92,15 +94,17 @@ $ongoing = itemModel::whereMonth('complete_at',Carbon::now('Asia/Jakarta')->mont
     }
 
     public function pdf(){
+        $pdfid = Carbon::now('Asia/Jakarta')->format('YmdHis');
         $item = itemModel::where(function ($query) {
             $query->where('status', 1)->orWhere('status', 0);})->where('id_user', '!=', 0)->whereMonth('complete_at',Carbon::now('Asia/Jakarta')->month)->get();
-            $date = Carbon::now()->toDateString();
+            $date = Carbon::now('Asia/Jakarta')->toDateString();
         $total = $item->sum('harga_akhir') - $item->sum('harga_awal');
 
         $pdf = PDF::loadView('pdfadmin', [
             'item' => $item,
             'date' => $date,
-            'total' => $total
+            'total' => $total,
+            'pdfid'=> $pdfid
         ])->setPaper('a4', 'potrait');
         return $pdf->stream();
     }

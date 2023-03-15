@@ -219,17 +219,21 @@
                                 <h6>Barang Lelang</h6>
                             </div>
                             <div class="flex-auto px-0 pt-0 pb-2">
-                                <div class="p-0 overflow-x-auto">
+                                <div class="p-0">
                                     <table
-                                        class="items-center justify-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                                        class="items-center justify-center w-full mb-0 align-top border-gray-200 text-slate-500" id="myTable">
                                         <thead class="align-bottom">
                                             <tr>
+                                                <th class="hidden"></th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                                     Nama</th>
+                                                    <th
+                                                        class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                                                        Status</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    Tanggal Ditambahkan</th>
+                                                    Kategori</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                                                     Harga Awal</th>
@@ -241,24 +245,36 @@
                                                     Jumlah bid</th>
                                                 <th
                                                     class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                                                    selesai Dalam</th>
+                                                    Keterangan Waktu</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($item as $item)
                                                 <tr>
+                                                    <td class="hidden">{{ $item->id }}</td>
                                                     <td
-                                                        class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent flex">
-                                                        <img src="{{ asset('storage/' . $item->gambar) }}" alt=""
+                                                    class="p-2 align-middle bg-transparent whitespace-nowrap border-b  shadow-transparent flex items-center h-full">
+                                                    <img src="{{ asset('storage/' . $item->gambar) }}" alt=""
                                                             class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl">
                                                         <p class="mb-0 font-semibold leading-normal text-sm">
                                                             {{ $item->nama }}</p>
                                                     </td>
                                                     <td
+                                                    class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                    <p class="mb-0 font-semibold leading-normal text-sm text-center">
+                                                            @if ($item->status == 0)
+                                                                On going
+                                                            @elseif ($item->status == 1)
+                                                                Ended
+                                                                @else
+                                                                Pending
+                                                            @endif</p>
+                                                    </td>
+                                                    <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                         <p class="mb-0 font-semibold leading-normal text-sm text-center">
-                                                            {{ $item->created_at}}</p>
+                                                            {{ $item->kategori->nama_kategori}}</p>
                                                     </td>
                                                     <td
                                                         class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">

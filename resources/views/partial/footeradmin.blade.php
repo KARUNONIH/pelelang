@@ -23,8 +23,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/datatable.js') }}"></script>
+
 
 <script src="{{ asset('js/dropify.js') }}"></script>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable({
+        order: [[2, 'desc']],order: [[0, 'desc']],
+        lengthMenu: [[9999999, 100, 50, 25, 10, 5], ["All", 100, 50, 25, 10, 5]]
+    });
+} );
+</script>
 <script>
     $('.dropify').dropify();
 </script>
@@ -62,7 +72,7 @@
                   <label for="exampleFormControlInput1" class="form-label">Kategori</label>
                   <select class="form-select" aria-label="Default select example"
                         name="kategori_id">
-                        <option value="${$(e.relatedTarget).data('kategori_id')}" selected disabled>${$(e.relatedTarget).data('nama_kategori')}</option>
+                        <option value="${$(e.relatedTarget).data('kategori_id')}" selected class="bg-black text-white hidden">${$(e.relatedTarget).data('nama_kategori')}</option>
                         @foreach ($kategori as $k)
                         <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
                         @endforeach
